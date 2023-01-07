@@ -16,7 +16,7 @@ const data = [
     },
     {
         id: 2,
-        screen: "MoveMoney",
+        screen: "Move Money",
         icon: "calendar",
     },
     {
