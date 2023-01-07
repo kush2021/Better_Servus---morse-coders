@@ -3,13 +3,15 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Accounts from "./Screens/Accounts";
 import More from "./Screens/More";
-import MoveMoney from "./Screens/MoveMoney";
 import { Icon } from "react-native-elements";
 import { StyleSheet } from "react-native";
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from "@react-navigation/drawer";
 import { Text } from "react-native-elements";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { View } from "react-native";
+import MoveMoney from './Screens/MoveMoney';
+import SingleAccount from './Screens/SingleAccount';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 function CustomDrawerContent(props) {
     return (
@@ -52,7 +54,7 @@ export default function App() {
                     headerTitleStyle: { color: "#fff" },
                     headerTintColor: "#fff",
                 }}
-                drawerContent={(props) => <CustomDrawerContent {...props}/>}
+                drawerContent={(props) => <CustomDrawerContent {...props} />}
             >
                 <Drawer.Screen
                     name="Accounts"
@@ -69,31 +71,40 @@ export default function App() {
                         ),
                     }}
                 />
-                <Drawer.Screen name="Move Money" 
-                component={MoveMoney} 
+                <Drawer.Screen
+                    name="Move Money"
+                    component={MoveMoney}
+                    options={{
+                        drawerIcon: () => (
+                            <Icon
+                                name="refresh-cw"
+                                type="feather"
+                                color="#ABAFBA"
+                                size="15"
+                                style={styles.icon}
+                            />
+                        ),
+                    }}
+                />
+                <Drawer.Screen
+                    name="More"
+                    component={More}
+                    options={{
+                        drawerIcon: () => (
+                            <Icon
+                                name="plus"
+                                type="feather"
+                                color="#ABAFBA"
+                                size="15"
+                                style={styles.icon}
+                            />
+                        ),
+                    }}
+                />
+                <Drawer.Screen name="Account"
+                component={SingleAccount} 
                 options={{
-                    drawerIcon: () => (
-                        <Icon
-                            name="refresh-cw"
-                            type="feather"
-                            color="#ABAFBA"
-                            size="15"
-                            style={styles.icon}
-                        />
-                    )
-                }}/>
-                <Drawer.Screen name="More"
-                component={More} 
-                options={{
-                    drawerIcon: () => (
-                        <Icon
-                            name="plus"
-                            type="feather"
-                            color="#ABAFBA"
-                            size="15"
-                            style={styles.icon}
-                        />
-                    )
+                    drawerItemStyle: {height: 0}
                 }}/>
             </Drawer.Navigator>
         </NavigationContainer>
