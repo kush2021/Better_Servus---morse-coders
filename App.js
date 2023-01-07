@@ -10,6 +10,7 @@ import { Text } from "react-native-elements";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { View } from "react-native";
 import MoveMoney from './Screens/MoveMoney';
+import { useFonts } from 'expo-font';
 import SingleAccount from './Screens/SingleAccount';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -46,6 +47,15 @@ function CustomDrawerContent(props) {
 const Drawer = createDrawerNavigator();
 
 export default function App() {
+
+     const [loaded] = useFonts({
+         SFcompactRegular: require("./assets/fonts/SF-Compact-Text-Regular.otf"),
+     });
+
+     if (!loaded) {
+         return null;
+     }
+
     return (
         <NavigationContainer>
             <Drawer.Navigator
