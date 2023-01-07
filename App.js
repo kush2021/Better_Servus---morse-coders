@@ -8,7 +8,6 @@ import { Icon } from "react-native-elements";
 import { StyleSheet } from "react-native";
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from "@react-navigation/drawer";
 import { Text } from "react-native-elements";
-import { color } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { View } from "react-native";
 
@@ -24,7 +23,9 @@ function CustomDrawerContent(props) {
             <View>
                 <DrawerItem
                     label={() => (
-                        <Text style={styles.textSignOut}>Sign Out</Text>
+                        <Text style={styles.textSignOut}>
+                            Sign Out
+                        </Text>
                     )}
                     icon={() => (
                         <Icon
