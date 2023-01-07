@@ -48,13 +48,14 @@ const Drawer = createDrawerNavigator();
 
 export default function App() {
 
-     const [loaded] = useFonts({
-         SFcompactRegular: require("./assets/fonts/SF-Compact-Text-Regular.otf"),
-     });
-
-     if (!loaded) {
-         return null;
-     }
+    const [loaded] = useFonts({
+        SFcompactRegular: require('./assets/fonts/SF-Compact-Text-Regular.otf'),
+        SFcompactSemibold: require('./assets/fonts/SF-Compact-Text-SemiboldItalic.otf'),
+    });
+      
+    if (!loaded) {
+        return null;
+    }
 
     return (
         <NavigationContainer>

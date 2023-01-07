@@ -41,6 +41,9 @@ export default function MoveMoney() {
 }
 
 const styles = StyleSheet.create({
+  screen: {
+    marginTop: 10,
+  },
   container: {
     flex: 1,
     marginTop: StatusBar.currentHeight || 0,
@@ -60,7 +63,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
   },
   title: {
-    fontSize: 20,
+    fontSize: 15,
     fontFamily: "SFcompactRegular",
   },
   
