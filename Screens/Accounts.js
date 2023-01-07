@@ -1,6 +1,7 @@
-import React from 'react'
-import { FlatList, StyleSheet, View } from 'react-native'
-import { Text } from 'react-native-elements'
+import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Text } from 'react-native-elements';
 
 const data = [
   {id: 1, name: "Personal Savings", balance: 1299.89},
@@ -10,12 +11,28 @@ const data = [
 ]
 
 export default function Accounts() {
+  const [name, setName] = useState("");
+  const [balance, setBalance] = useState(1.0);
+  const navigation = useNavigation();
+
+  const goToAccountScreen = () => {
+    navigation.navigate('Account', {
+      name,
+      balance,
+    });
+  };
 
   const renderItem = ({item}) => (
-    <View style={styles.container}>
-      <Text style={styles.name}>{item.name}</Text>
-      <Text style={styles.balance}>${item.balance.toLocaleString()}</Text>
-    </View>
+    <TouchableOpacity onPress={() => {
+      setName(item.name);
+      setBalance(item.balance);
+      goToAccountScreen();
+    }}>
+      <View style={styles.container}>
+        <Text style={styles.name}>{item.name}</Text>
+        <Text style={styles.balance}>${item.balance.toLocaleString()}</Text>
+      </View>
+    </TouchableOpacity>
   )
   
   return (
