@@ -1,22 +1,25 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Footer from './Components/Footer';
-import Accounts from './Screens/Accounts';
-import More from './Screens/More';
-import MoveMoney from './Screens/MoveMoney';
+import "react-native-gesture-handler";
+import { NavigationContainer } from "@react-navigation/native";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import Footer from "./Components/Footer";
+import Accounts from "./Screens/Accounts";
+import More from "./Screens/More";
+import MoveMoney from "./Screens/MoveMoney";
 
-const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
 export default function App() {
-  return (
-      <NavigationContainer>
-          <Stack.Navigator
-              screenOptions={{ headerStyle: { backgroundColor: "#3070B6" }}}>
-              <Stack.Screen name="Accounts" component={Accounts} />
-              <Stack.Screen name="Move Money" component={MoveMoney} />
-              <Stack.Screen name="More" component={More} />
-          </Stack.Navigator>
-          <Footer />
-      </NavigationContainer>
-  );
+    return (
+        <NavigationContainer>
+            <Drawer.Navigator
+                screenOptions={{ headerStyle: { backgroundColor: "#3070B6" },
+								headerTitleStyle: {color: "#fff"},
+                                headerTintColor: "#fff"
+                                }}>
+                <Drawer.Screen name="Accounts" component={Accounts} />
+                <Drawer.Screen name="Move Money" component={MoveMoney} />
+                <Drawer.Screen name="More" component={More} />
+            </Drawer.Navigator>
+        </NavigationContainer>
+    );
 }
