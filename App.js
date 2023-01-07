@@ -4,11 +4,22 @@ import Footer from './Components/Footer';
 import Accounts from './Screens/Accounts';
 import More from './Screens/More';
 import MoveMoney from './Screens/MoveMoney';
+import { useFonts } from 'expo-font';
 import SingleAccount from './Screens/SingleAccount';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+
+
+    const [loaded] = useFonts({
+        SFcompactRegular: require('./assets/fonts/SF-Compact-Text-Regular.otf'),
+      });
+      
+      if (!loaded) {
+        return null;
+      }
+    
   return (
       <NavigationContainer>
           <Stack.Navigator
