@@ -73,12 +73,14 @@ const styles = StyleSheet.create({
     balanceText: {
         fontSize: 16,
         color: "white",
-        fontWeight: "500"
+        fontWeight: "500",
+        fontFamily: "SFcompactRegular",
     },
     balanceMoney: {
         fontWeight: "600",
         fontSize: 18,
-        color: "white"
+        color: "white",
+        fontFamily: "SFcompactRegular",
     },
     balanceContainerTwo: {
         display: 'flex',
@@ -91,12 +93,14 @@ const styles = StyleSheet.create({
     balanceTextTwo: {
         fontSize: 14,
         color: "white",
-        fontWeight: "500"
+        fontWeight: "500",
+        fontFamily: "SFcompactRegular",
     },
     balanceMoneyTwo: {
         fontWeight: "600",
         fontSize: 16,
-        color: "white"
+        color: "white",
+        fontFamily: "SFcompactRegular",
     },
     itemContainer: {
         display: "flex",
