@@ -1,64 +1,44 @@
-import React, { useState } from 'react'
-import { StyleSheet, Text } from 'react-native'
-//import { SafeAreaView } from 'react-native-safe-area-context'
-import { FlatList, SafeAreaView, StatusBar, TouchableOpacity } from "react-native";
+import React from 'react';
+import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar } from 'react-native';
 
 const DATA = [
   {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    title: "First Item",
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    title: 'Make Internal Transfer',
   },
   {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    title: "Second Item",
+    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+    title: 'View Pending Transfers',
   },
   {
-    id: "58694a0f-3da1-471f-bd96-145571e29d72",
-    title: "Third Item",
+    id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    title: 'Interac e-Transfer',
   },
 ];
 
-const Item = ({ item, onPress, backgroundColor, textColor }) => (
-  <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
-    <Text style={[styles.title, textColor]}>{item.title}</Text>
-  </TouchableOpacity>
+const Item = ({ title }) => (
+  <View style={styles.item}>
+    <Text style={styles.title}>{title}</Text>
+  </View>
 );
 
 
+
 export default function MoveMoney() {
+  const renderItem = ({ item }) => (
+    <Item title={item.title} />
+  );
 
-  const [selectedId, setSelectedId] = useState(null);
-
-  const renderItem = ({ item }) => {
-    const backgroundColor = item.id === selectedId ? "#6e3b6e" : "#f9c2ff";
-    const color = item.id === selectedId ? 'white' : 'black';
-
-    return (
-      <Item
-        item={item}
-        onPress={() => setSelectedId(item.id)}
-        backgroundColor={{ backgroundColor }}
-        textColor={{ color }}
-      />
-    );
-  };
   return (
     <SafeAreaView style={styles.container}>
-      <Text>Move Money Screen</Text>
-
       <FlatList
         data={DATA}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-        extraData={selectedId}
+        keyExtractor={item => item.id}
       />
     </SafeAreaView>
   );
 }
-
-//const styles = StyleSheet.create({})
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -66,12 +46,21 @@ const styles = StyleSheet.create({
     marginTop: StatusBar.currentHeight || 0,
   },
   item: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: "white",
+    marginHorizontal: 15,
+    marginVertical: 5,
+    borderRadius: 10,
     padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
+    shadowColor: '#171717',
+    shadowOffset: {width: -2, height: 4},
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
   },
   title: {
-    fontSize: 32,
+    fontSize: 20,
   },
+  
 });
-
