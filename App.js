@@ -14,6 +14,7 @@ export default function App() {
 
     const [loaded] = useFonts({
         SFcompactRegular: require('./assets/fonts/SF-Compact-Text-Regular.otf'),
+        SFcompactSemibold: require('./assets/fonts/SF-Compact-Text-SemiboldItalic.otf'),
       });
       
       if (!loaded) {
@@ -23,7 +24,8 @@ export default function App() {
   return (
       <NavigationContainer>
           <Stack.Navigator
-              screenOptions={{ headerStyle: { backgroundColor: "#3070B6" }}}>
+              screenOptions={{ headerStyle: { backgroundColor: "#3070B6", fontFamily: "SFcompactSemibold",
+            }}}>
               <Stack.Screen name="Accounts" component={Accounts} />
               <Stack.Screen name="Move Money" component={MoveMoney} />
               <Stack.Screen name="More" component={More} />

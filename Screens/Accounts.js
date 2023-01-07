@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 15,
+    fontFamily: "SFcompactRegular",
   },
   balance: {
     fontWeight: "600",
