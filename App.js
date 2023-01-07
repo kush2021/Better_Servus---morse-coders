@@ -9,25 +9,14 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-          <Stack.Screen
-            name="Accounts"
-            component={Accounts}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Move Money"
-            component={MoveMoney}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="More"
-            component={More}
-            options={{ headerShown: false }}
-          />
-      </Stack.Navigator>
-      <Footer />
-    </NavigationContainer>
+      <NavigationContainer>
+          <Stack.Navigator
+              screenOptions={{ headerStyle: { backgroundColor: "#3070B6" }}}>
+              <Stack.Screen name="Accounts" component={Accounts} />
+              <Stack.Screen name="Move Money" component={MoveMoney} />
+              <Stack.Screen name="More" component={More} />
+          </Stack.Navigator>
+          <Footer />
+      </NavigationContainer>
   );
 }
