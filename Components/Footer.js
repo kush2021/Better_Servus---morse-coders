@@ -12,17 +12,17 @@ const data = [
     {
         id: 1,
         screen: "Accounts",
-        icon: "home",
+        icon: "dollar-sign",
     },
     {
         id: 2,
         screen: "Move Money",
-        icon: "calendar",
+        icon: "refresh-cw",
     },
     {
         id: 3,
         screen: "More",
-        icon: "plus",
+        icon: "more-horizontal",
     },
 ];
 
@@ -36,7 +36,7 @@ const Footer = () => {
         >
             <View>
                 <Icon
-                    type="simple-line-icon"
+                    type="feather"
                     color="#ABAFBA"
                     name={item.icon}
                 />

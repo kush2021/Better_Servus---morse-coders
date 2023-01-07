@@ -5,7 +5,7 @@ import Accounts from './Screens/Accounts';
 import More from './Screens/More';
 import MoveMoney from './Screens/MoveMoney';
 import { useFonts } from 'expo-font';
-
+import SingleAccount from './Screens/SingleAccount';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +27,7 @@ export default function App() {
               <Stack.Screen name="Accounts" component={Accounts} />
               <Stack.Screen name="Move Money" component={MoveMoney} />
               <Stack.Screen name="More" component={More} />
+              <Stack.Screen name="Account" component={SingleAccount} />
           </Stack.Navigator>
           <Footer />
       </NavigationContainer>
