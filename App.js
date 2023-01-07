@@ -2,6 +2,7 @@ import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Accounts from "./Screens/Accounts";
+import FaceID from "./Screens/FaceID";
 import More from "./Screens/More";
 import { Icon } from "react-native-elements";
 import { StyleSheet } from "react-native";
@@ -114,6 +115,11 @@ export default function App() {
                 />
                 <Drawer.Screen name="Account"
                 component={SingleAccount} 
+                options={{
+                    drawerItemStyle: {height: 0}
+                }}/>
+                <Drawer.Screen name="FaceID"
+                component={FaceID} 
                 options={{
                     drawerItemStyle: {height: 0}
                 }}/>
