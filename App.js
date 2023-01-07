@@ -13,7 +13,7 @@ export default function App() {
 
 
     const [loaded] = useFonts({
-        SFcompact: require('./assets/fonts/SF-Compact-Text-Regular.otf'),
+        SFcompactRegular: require('./assets/fonts/SF-Compact-Text-Regular.otf'),
       });
       
       if (!loaded) {
