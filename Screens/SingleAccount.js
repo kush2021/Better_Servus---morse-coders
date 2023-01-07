@@ -34,7 +34,7 @@ export default function SingleAccount() {
         <View>
             <Pressable style={styles.button} onPress={() => (navigation.goBack())}>
                 <Icon 
-                    name="x"
+                    name="arrow-left"
                     type="feather"
                     size="25"
                 />
@@ -111,10 +111,10 @@ const styles = StyleSheet.create({
         fontFamily: "SFcompactRegular",
     },
     button: {
-        paddingRight: 20,
+        paddingLeft: 20,
         paddingTop: 20,
         borderRadius: 4,
-        alignItems: "flex-end"
+        alignItems: "flex-start"
         
     },
     itemContainer: {

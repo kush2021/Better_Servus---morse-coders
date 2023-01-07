@@ -11,8 +11,19 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { View } from "react-native";
 import MoveMoney from './Screens/MoveMoney';
 import { useFonts } from 'expo-font';
-import SingleAccount from './Screens/SingleAccount';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import SingleAccount from "./Screens/SingleAccount";
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
+
+function getHeaderTitle(route) {
+  const routeName = getFocusedRouteNameFromRoute(route) ?? "Accounts"
+  switch(routeName) {
+    case "Accounts":
+      return "My Accounts";
+    case "Account":
+      return "View Account";
+  }
+}
 
 function CustomDrawerContent(props) {
     return (
@@ -45,6 +56,16 @@ function CustomDrawerContent(props) {
 }
 
 const Drawer = createDrawerNavigator();
+const Stack = createNativeStackNavigator();
+
+function AccountStack() {
+  return (
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name="Accounts" component={Accounts} />
+      <Stack.Screen name="Account" component={SingleAccount} />
+    </Stack.Navigator>
+  )
+}
 
 export default function App() {
 
@@ -68,10 +89,11 @@ export default function App() {
                 drawerContent={(props) => <CustomDrawerContent {...props} />}
             >
                 <Drawer.Screen
-                    name="Accounts"
-                    component={Accounts}
-                    options={{
-                        drawerIcon: () => (
+                    name="My Accounts"
+                    component={AccountStack}
+                    options={({route}) => ({
+                      headerTitle: getHeaderTitle(route),
+                      drawerIcon: () => (
                             <Icon
                                 name="dollar-sign"
                                 type="feather"
@@ -80,7 +102,7 @@ export default function App() {
                                 style={styles.icon}
                             />
                         ),
-                    }}
+                    })}
                 />
                 <Drawer.Screen
                     name="Move Money"
@@ -112,11 +134,6 @@ export default function App() {
                         ),
                     }}
                 />
-                <Drawer.Screen name="Account"
-                component={SingleAccount} 
-                options={{
-                    drawerItemStyle: {height: 0}
-                }}/>
             </Drawer.Navigator>
         </NavigationContainer>
     );
