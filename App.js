@@ -3,6 +3,10 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Accounts from "./Screens/Accounts";
 import FaceID from "./Screens/FaceID";
+import ContactUs from "./Screens/ContactUs";
+import ChangePassword from "./Screens/ChangePassword";
+import FeedbackSupport from "./Screens/FeedbackSupport";
+import BranchATM from "./Screens/BranchATM";
 import More from "./Screens/More";
 import { Icon } from "react-native-elements";
 import { StyleSheet } from "react-native";
@@ -118,8 +122,28 @@ export default function App() {
                 options={{
                     drawerItemStyle: {height: 0}
                 }}/>
-                <Drawer.Screen name="FaceID"
+                <Drawer.Screen name="Face ID"
                 component={FaceID} 
+                options={{
+                    drawerItemStyle: {height: 0}
+                }}/>
+                <Drawer.Screen name="Change Password"
+                component={ChangePassword} 
+                options={{
+                    drawerItemStyle: {height: 0}
+                }}/>
+                <Drawer.Screen name="Contact Us"
+                component={ContactUs} 
+                options={{
+                    drawerItemStyle: {height: 0}
+                }}/>
+                <Drawer.Screen name="Feedback & Support"
+                component={FeedbackSupport} 
+                options={{
+                    drawerItemStyle: {height: 0}
+                }}/>
+                <Drawer.Screen name="Branch & ATM Locations"
+                component={BranchATM} 
                 options={{
                     drawerItemStyle: {height: 0}
                 }}/>

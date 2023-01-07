@@ -14,18 +14,17 @@ const data = [
 export default function Accounts() {
   const [name, setName] = useState("");
   const navigation = useNavigation();
-  
 
-  const goToAccountScreen = () => {
+  const goToAccountScreen = (name) => {
 
-    navigation.navigate('FaceID', {
+    navigation.navigate(name, {
       name,
     });
   };
 
   const renderItem = ({item}) => (
     <TouchableOpacity onPress={() => {
-      goToAccountScreen();
+      goToAccountScreen(item.name);
     }}>
     <View style={styles.container}>
     <Text style={styles.name}>{item.name}</Text>
