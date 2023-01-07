@@ -2,6 +2,8 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import moment from "moment";
 import React, { useEffect } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { Pressable } from 'react-native';
+import { Icon } from 'react-native-elements';
 
 data = [
     {id: 1, date: "2023-01-01", title: "AFT Pre-Authorized Debit WS", amount: "12.59", spend: true},
@@ -13,7 +15,6 @@ data = [
 export default function SingleAccount() {
     const route = useRoute();
     const navigation = useNavigation();
-
 
     useEffect(() => {
         navigation.setOptions({title: route.params.name})
@@ -31,6 +32,13 @@ export default function SingleAccount() {
     
     return (
         <View>
+            <Pressable style={styles.button} onPress={() => (navigation.goBack())}>
+                <Icon 
+                    name="x"
+                    type="feather"
+                    size="25"
+                />
+            </Pressable>
             <View style={styles.balanceOuter}>
                 <View style={styles.balanceContainer}>
                     <Text style={styles.balanceText}>Balance</Text>
@@ -102,6 +110,13 @@ const styles = StyleSheet.create({
         color: "white",
         fontFamily: "SFcompactRegular",
     },
+    button: {
+        paddingRight: 20,
+        paddingTop: 20,
+        borderRadius: 4,
+        alignItems: "flex-end"
+        
+    },
     itemContainer: {
         display: "flex",
         flexDirection: "row",
@@ -122,6 +137,13 @@ const styles = StyleSheet.create({
         paddingLeft: 15,
         fontWeight: "500",
         color: "#3070B6"
+    },
+    text: {
+        fontSize: 16,
+        lineHeight: 21,
+        fontWeight: "bold",
+        letterSpacing: 0.25,
+        color: "black"
     },
     add: {
         color: "green"
