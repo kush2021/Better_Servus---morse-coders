@@ -11,26 +11,37 @@ const data = [
   {id: 5, name: "Feedback & Support"},     //not functional
 ]
 
-export default function Accounts() {
-  const [name, setName] = useState("");
+export default function More() {
   const navigation = useNavigation();
 
-  const goToAccountScreen = (name) => {
-
-    navigation.navigate(name, {
-      name,
-    });
+  const goToScreen = ({name}) => {
+    switch(name) {
+      case "Feedback & Support":
+        navigation.navigate("More", {screen: "Feedback Support Page"});
+      case "Face ID":
+        navigation.navigate("More", {screen: "Face ID Page"});
+      case "Change Password":
+        navigation.navigate("More", {screen: "Change Password Page"});
+      case "Branch & ATM Locations":
+        navigation.navigate("More", {screen: "Branch ATM Page"});
+      case "Contact Us":
+        navigation.navigate("More", {screen: "Contact Us Page"});
+    }
   };
 
-  const renderItem = ({item}) => (
-    <TouchableOpacity onPress={() => {
-      goToAccountScreen(item.name);
-    }}>
-    <View style={styles.container}>
-    <Text style={styles.name}>{item.name}</Text>
-    </View>
+  const Item = ({ name }) => (
+    <TouchableOpacity
+      onPress={() => {
+        goToScreen({name});
+      }}
+    >
+      <View style={styles.container}>
+        <Text style={styles.name}>{name}</Text>
+      </View>
     </TouchableOpacity>
-  )
+  );
+
+  const renderItem = ({item}) => <Item name={item.name} />;
   
   return (
     <View style={styles.screen}>
