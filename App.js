@@ -1,24 +1,24 @@
-import "react-native-gesture-handler";
-import { NavigationContainer } from "@react-navigation/native";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import Accounts from "./Screens/Accounts";
-import FaceID from "./Screens/FaceID";
-import ContactUs from "./Screens/ContactUs";
-import ChangePassword from "./Screens/ChangePassword";
-import FeedbackSupport from "./Screens/FeedbackSupport";
-import BranchATM from "./Screens/BranchATM";
-import More from "./Screens/More";
-import { Icon } from "react-native-elements";
-import { StyleSheet } from "react-native";
-import { DrawerContentScrollView, DrawerItemList, DrawerItem } from "@react-navigation/drawer";
-import { Text } from "react-native-elements";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { View } from "react-native";
-import MoveMoney from './Screens/MoveMoney';
-import { useFonts } from 'expo-font';
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from "@react-navigation/drawer";
+import { getFocusedRouteNameFromRoute, NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import SingleAccount from "./Screens/SingleAccount";
-import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
+import { useFonts } from 'expo-font';
+import { signOut } from "firebase/auth";
+import { StyleSheet, View } from "react-native";
+import { Icon, Text } from "react-native-elements";
+import "react-native-gesture-handler";
+import { SafeAreaView } from "react-native-safe-area-context";
+import "./firebase";
+import { auth } from "./firebase";
+import Accounts from "./Screens/Accounts";
+import BranchATM from "./Screens/BranchATM";
+import ChangePassword from "./Screens/ChangePassword";
+import ContactUs from "./Screens/ContactUs";
+import FaceID from "./Screens/FaceID";
+import FeedbackSupport from "./Screens/FeedbackSupport";
+import LoginScreen from "./Screens/LoginScreen";
+import More from "./Screens/More";
+import MoveMoney from './Screens/MoveMoney';
+import SingleAccount from './Screens/SingleAccount';
 
 function getHeaderTitle(route) {
   const routeName = getFocusedRouteNameFromRoute(route) ?? "Accounts"
@@ -41,6 +41,7 @@ function getHeaderTitle(route) {
 }
 
 function CustomDrawerContent(props) {
+  const navigation = useNavigation();
     return (
         <SafeAreaView
             style={{ flex: 1 }}
@@ -51,6 +52,10 @@ function CustomDrawerContent(props) {
             </DrawerContentScrollView>
             <View>
                 <DrawerItem
+                    onPress={async () => {
+                      await signOut(auth);
+                      navigation.navigate("auth");
+                    }}  
                     label={() => (
                         <Text style={styles.textSignOut}>
                             Sign Out
@@ -96,13 +101,11 @@ function MoreStack() {
 }
 
 export default function App() {
-
     const [loaded] = useFonts({
         SFcompactRegular: require('./assets/fonts/SF-Compact-Text-Regular.otf'),
         SFcompactSemibold: require('./assets/fonts/SF-Compact-Text-Semibold.otf'),
-
     });
-      
+  
     if (!loaded) {
         return null;
     }
@@ -116,7 +119,18 @@ export default function App() {
                     headerTintColor: "#fff",
                 }}
                 drawerContent={(props) => <CustomDrawerContent {...props} />}
+                initialRouteName="auth"
             >
+              <Drawer.Screen
+                name="auth"
+                component={LoginScreen}
+                options={{
+                  drawerItemStyle: { height: 0 },
+                  swipeEnabled: false,
+                  headerShown: false,
+                }}
+
+              />
                 <Drawer.Screen
                     name="My Accounts"
                     component={AccountStack}
@@ -163,6 +177,12 @@ export default function App() {
                               />
                           ),
                     })}
+                />
+                <Drawer.Screen name="Account"
+                  component={SingleAccount} 
+                  options={{
+                    drawerItemStyle: {height: 0},
+                  }}
                 />
             </Drawer.Navigator>
         </NavigationContainer>
