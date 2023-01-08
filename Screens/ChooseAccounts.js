@@ -7,11 +7,15 @@ import {
 } from "react";
 import {
 	FlatList,
+	Pressable,
 	StyleSheet,
 	TouchableOpacity,
 	View
 } from "react-native";
-import {Text} from "react-native-elements";
+import {
+	Text,
+	Icon
+} from "react-native-elements";
 import {db} from "../firebase";
 import {
 	collection,
@@ -57,6 +61,16 @@ export default function ChooseAccounts() {
 	/* Return the screen. */
 	return (
 		<View style = {styles.screen}>
+			<Pressable
+				style = {styles.button}
+				onPress = {() => navigation.goBack()}
+			>
+				<Icon
+					name = "arrow-left"
+					type = "feather"
+					size = "25"
+				/>
+			</Pressable>
 			<FlatList
 				data = {accounts}
 				renderItem = {renderItem}
@@ -68,10 +82,15 @@ export default function ChooseAccounts() {
 
 /* The styles used. */
 const styles = StyleSheet.create({
-	balance: {
-		fontWeight: "600",
-		fontSize: 16
-	},
+    balance: {
+        fontWeight: "600",
+        fontSize: 16,
+    },
+    button: {
+        padding: 20,
+        borderRadius: 4,
+        alignItems: "flex-start"
+    },
     container: {
         display: "flex",
         flexDirection: "row",
@@ -91,7 +110,7 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontFamily: "SFcompactRegular",
     },
-	screen: {
-		marginTop: 10
-	}
+    screen: {
+        marginTop: 10,
+    },
 });
