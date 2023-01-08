@@ -4,13 +4,11 @@
 import { useNavigation } from '@react-navigation/native';
 import { collection, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
+import { FlatList, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Text } from 'react-native-elements';
 import { VictoryAxis, VictoryChart, VictoryPie, VictoryTheme } from "victory-native";
 import { db } from '../firebase';
-import Onboarding from "../Components/Onboarding";
 import Insights from './Insights';
-import OnboardingItem from '../Components/OnboardingItem';
 
 
 
@@ -79,8 +77,9 @@ export default function Accounts() {
   
   /* Return the screen. */
   return (
-    <View style={styles.screen}>
-      <View style={{height: 200}}>
+    <ScrollView style={styles.screen}>
+      <View style={{height: 175}}>
+        <Text style={styles.semiHeader}>Insights</Text>
         <Insights />
       </View>
       <Text style={styles.semiHeader}>Spending Summary</Text>
@@ -102,18 +101,22 @@ export default function Accounts() {
       </View>
       <Text style={styles.semiHeader}>Accounts</Text>
       <FlatList
+        style={styles.list}
         data={accounts}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       />
 
       {total != 0 && <Text style={styles.totalBalance}>Total Balance: ${parseFloat(total).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>}
-    </View>
+    </ScrollView>
   )
 }
 
 /* The styles used. */
 const styles = StyleSheet.create({
+  screen: {
+    marginBottom: 60,
+  },
   container: {
     display: "flex",
     flexDirection: "row",
@@ -160,7 +163,6 @@ const styles = StyleSheet.create({
     marginRight: 20,
     marginTop: 5,
     fontSize: 16,
-
     fontFamily: "SFcompactSemibold",
     color: "#3070B6",
   },
@@ -193,5 +195,5 @@ const styles = StyleSheet.create({
     fontFamily: "SFcompactSemibold",
     color: "#3070B6",
     marginTop: 10,
-  }
+  }, 
 })
