@@ -25,7 +25,7 @@ export default function LoginScreen() {
         await signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             const user = userCredential.user;
-            navigation.navigate("Accounts");
+            navigation.navigate("My Accounts");
         })
         .catch((error) => {
             console.log(error);

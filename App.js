@@ -1,5 +1,6 @@
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from "@react-navigation/drawer";
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import { getFocusedRouteNameFromRoute, NavigationContainer, useNavigation } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useFonts } from 'expo-font';
 import { signOut } from "firebase/auth";
 import { StyleSheet, View } from "react-native";
@@ -9,10 +10,35 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import "./firebase";
 import { auth } from "./firebase";
 import Accounts from "./Screens/Accounts";
+import BranchATM from "./Screens/BranchATM";
+import ChangePassword from "./Screens/ChangePassword";
+import ContactUs from "./Screens/ContactUs";
+import FaceID from "./Screens/FaceID";
+import FeedbackSupport from "./Screens/FeedbackSupport";
 import LoginScreen from "./Screens/LoginScreen";
 import More from "./Screens/More";
 import MoveMoney from './Screens/MoveMoney';
 import SingleAccount from './Screens/SingleAccount';
+
+function getHeaderTitle(route) {
+  const routeName = getFocusedRouteNameFromRoute(route) ?? "Accounts"
+  switch(routeName) {
+    case "Accounts":
+      return "My Accounts";
+    case "Account":
+      return "View Account";
+    case "BranchATM":
+        return "Find Locations";
+    case "ChangePassword":
+        return "Change Password";
+    case "Contact Us":
+        return "Contact Us";
+    case "FaceID":
+        return "Face ID";
+    case "FeedbackSupport":
+        return "Feedback & Support";
+  }
+}
 
 function CustomDrawerContent(props) {
   const navigation = useNavigation();
@@ -50,6 +76,29 @@ function CustomDrawerContent(props) {
 }
 
 const Drawer = createDrawerNavigator();
+const Stack = createNativeStackNavigator();
+
+function AccountStack() {
+  return (
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name="Accounts" component={Accounts} />
+      <Stack.Screen name="Account" component={SingleAccount} />
+    </Stack.Navigator>
+  )
+}
+
+function MoreStack() {
+    return (
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+            <Stack.Screen name="More Options Page" component={More} />
+            <Stack.Screen name="Branch ATM Page" component={BranchATM} />
+            <Stack.Screen name="Change Password Page" component={ChangePassword} />
+            <Stack.Screen name="Contact Us Page" component={ContactUs} />
+            <Stack.Screen name="Face ID Page" component={FaceID} />
+            <Stack.Screen name="Feedback Support Page" component={FeedbackSupport} /> 
+        </Stack.Navigator>
+    )
+}
 
 export default function App() {
     const [loaded] = useFonts({
@@ -83,10 +132,11 @@ export default function App() {
 
               />
                 <Drawer.Screen
-                    name="Accounts"
-                    component={Accounts}
-                    options={{
-                        drawerIcon: () => (
+                    name="My Accounts"
+                    component={AccountStack}
+                    options={({route}) => ({
+                      headerTitle: getHeaderTitle(route),
+                      drawerIcon: () => (
                             <Icon
                                 name="dollar-sign"
                                 type="feather"
@@ -95,7 +145,7 @@ export default function App() {
                                 style={styles.icon}
                             />
                         ),
-                    }}
+                    })}
                 />
                 <Drawer.Screen
                     name="Move Money"
@@ -114,18 +164,19 @@ export default function App() {
                 />
                 <Drawer.Screen
                     name="More"
-                    component={More}
-                    options={{
+                    component={MoreStack}
+                    options={({route}) => ({
+                        headerTitle: getHeaderTitle(route),
                         drawerIcon: () => (
-                            <Icon
-                                name="plus"
-                                type="feather"
-                                color="#ABAFBA"
-                                size="15"
-                                style={styles.icon}
-                            />
-                        ),
-                    }}
+                              <Icon
+                                  name="plus"
+                                  type="feather"
+                                  color="#ABAFBA"
+                                  size="15"
+                                  style={styles.icon}
+                              />
+                          ),
+                    })}
                 />
                 <Drawer.Screen name="Account"
                   component={SingleAccount} 
