@@ -4,19 +4,23 @@ import {
     FlatList, SafeAreaView, StatusBar, StyleSheet,
     Text, View
 } from "react-native";
+import { Icon } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 const DATA = [
     {
         id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+        icon: "refresh-ccw",
         title: "Make Internal Transfer",
     },
     {
         id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
+        icon: "clock",
         title: "View Pending Transfers",
     },
     {
         id: "58694a0f-3da1-471f-bd96-145571e29d72",
+        icon: "send",
         title: "Interac e-Transfer",
     },
 ];
@@ -31,18 +35,25 @@ export default function MoveMoney() {
         }
     };
 
-    const Item = ({ title }) => (
+    const Item = ({ title, icon }) => (
         <TouchableOpacity
             onPress={() => {
                 goToScreen({ title });
             }}
         >
             <View style={styles.item}>
+            <Icon
+                name={icon}
+                type="feather"
+                color="#636366"
+                size="18"
+                style={styles.icon}
+            />
                 <Text style={styles.title}>{title}</Text>
             </View>
         </TouchableOpacity>
     );
-    const renderItem = ({ item }) => <Item title={item.title} />;
+    const renderItem = ({ item }) => <Item title={item.title} icon={item.icon} />;
 
     return (
         <SafeAreaView style={styles.container}>
@@ -59,12 +70,11 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         marginTop: StatusBar.currentHeight || 10,
-        
     },
     item: {
         display: "flex",
         flexDirection: "row",
-        justifyContent: "space-between",
+        alignItems: "center",
         backgroundColor: "white",
         marginHorizontal: 15,
         marginVertical: 5,
@@ -78,5 +88,6 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 15,
         fontFamily: "SFcompactRegular",
+        paddingLeft: 5,
     },
 });

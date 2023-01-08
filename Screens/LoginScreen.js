@@ -33,6 +33,8 @@ export default function LoginScreen() {
         setErrorTwo("");
         setHasErrorsOne(false);
         setHasErrorsTwo(false);
+        setLoginButton("Sign In");
+        setsignUpButton("Sign Up");
         
         if(error && email != "" && password != "") {
             setErrorOne("invalid email or password");
