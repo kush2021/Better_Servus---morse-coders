@@ -1,33 +1,30 @@
-import React from 'react'
-import { StyleSheet, Text, View, Pressable } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { Icon } from "react-native-elements";
 import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Icon } from "react-native-elements";
 
 export default function ContactUs() {
   const navigation = useNavigation();
 
   return (
-      <View>
-          <SafeAreaView style={styles.container}>
-              <Pressable
-                  style={styles.button}
-                  onPress={() => navigation.goBack()}
-              >
-                  <Icon name="arrow-left" type="feather" size="25" />
-              </Pressable>
-              <Icon
-                  name="mail"
-                  type="feather"
-                  size="120"
-                  color="#3070B6"
-                  style={styles.mailIcon}
-              />
-              <Text style={styles.text}>
-                  Send us an email and we'll respond within one business day!
-              </Text>
-          </SafeAreaView>
-      </View>
+    <View style={styles.container}>
+        <Pressable
+            style={styles.button}
+            onPress={() => navigation.goBack()}
+        >
+            <Icon name="arrow-left" type="feather" size="25" />
+        </Pressable>
+        <Icon
+            name="mail"
+            type="feather"
+            size="120"
+            color="#3070B6"
+            style={styles.mailIcon}
+        />
+        <Text style={styles.text}>
+            Send us an email and we'll respond within one business day!
+        </Text>
+    </View>
   );
 }
 const styles = StyleSheet.create({
