@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
+import React, {useCallback, useState, useRef} from "react";
 import {
     Pressable,
     SafeAreaView,
@@ -9,10 +9,10 @@ import {
     View,
 } from "react-native";
 import { Icon } from "react-native-elements";
-import { TextInput } from "react-native-gesture-handler";
+import {TextInput} from "react-native-gesture-handler";
 
 export default function TransferMoney() {
-    const navigation = useNavigation();
+
 
     return (
         <SafeAreaView style={styles.container}>
@@ -23,7 +23,7 @@ export default function TransferMoney() {
                 <Icon name="arrow-left" type="feather" size="25" />
             </Pressable>
             <View style={styles.individualContainer}>
-                <Pressable style={styles.textBox}>
+                <Pressable style={styles.textBox} onPress={() => setIsOpen(true)}>
                     <Text style={styles.text}>From</Text>
                 </Pressable>
             </View>
@@ -35,13 +35,22 @@ export default function TransferMoney() {
             <View style={styles.individualContainer}>
                 <Pressable style={styles.textBox}>
                     <Text style={styles.text}>Amount</Text>
-                    <TextInput>Enter Amount </TextInput>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Enter Amount"
+                        clearTextOnFocus = "true"
+                    />
                 </Pressable>
             </View>
             <View style={styles.individualContainer}>
                 <Pressable style={styles.textBox}>
                     <Text style={styles.text}>Date</Text>
-                    <TextInput>Insert Date Here</TextInput>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Enter Date"
+                        clearTextOnFocus = "true"
+                    />
+              
                 </Pressable>
             </View>
         </SafeAreaView>
@@ -80,4 +89,8 @@ const styles = StyleSheet.create({
         padding: 20,
         backgroundColor: "white",
     },
+    input:{
+        paddingTop: 15,
+        size: 24
+    }
 });

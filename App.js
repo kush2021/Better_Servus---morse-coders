@@ -20,6 +20,12 @@ import FeedbackSupport from "./Screens/FeedbackSupport";
 import LoginScreen from "./Screens/LoginScreen";
 import More from "./Screens/More";
 import MoveMoney from './Screens/MoveMoney';
+import * as LocalAuthentication from 'expo-local-authentication';
+import { useEffect, useState } from "react";
+
+
+
+
 
 function getHeaderTitle(route) {
   const routeName = getFocusedRouteNameFromRoute(route);
@@ -112,6 +118,17 @@ function MoreStack() {
 }
 
 export default function App() {
+
+    let [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    useEffect(() => {
+            async function authenticate(){
+            const result = await LocalAuthentication.authenticateAsync();
+            setIsAuthenticated(result.success);
+            }
+            authenticate();
+        },[]);
+        
     const [loaded] = useFonts({
         SFcompactRegular: require('./assets/fonts/SF-Compact-Text-Regular.otf'),
         SFcompactSemibold: require('./assets/fonts/SF-Compact-Text-Semibold.otf'),

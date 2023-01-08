@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     },
     singleInput: {
         marginTop: 20,
-        borderWidth: "0.5",
+        borderWidth: 0.5,
         borderRadius: 10,
         paddingHorizontal: 10,
         borderColor: "#8e8e93",
