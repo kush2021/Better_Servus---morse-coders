@@ -25,11 +25,6 @@ import More from "./Screens/More";
 import MoveMoney from './Screens/MoveMoney';
 import * as LocalAuthentication from 'expo-local-authentication';
 import { useEffect, useState } from "react";
-
-
-
-
-import Insights from "./Screens/Insights";
 import SingleAccount from "./Screens/SingleAccount";
 import TransferMoney from "./Screens/TransferMoney";
 
@@ -257,22 +252,6 @@ export default function App() {
                     drawerItemStyle: {height: 0},
                   }}
                 />
-                <Drawer.Screen
-                    name="Insights"
-                    component={Insights}
-                    options={({route}) => ({
-                        headerTitle: getHeaderTitle(route),
-                        drawerIcon: () => (
-                              <Icon
-                                  name="star"
-                                  type="feather"
-                                  color="#ABAFBA"
-                                  size="15"
-                                  style={styles.icon}
-                              />
-                          ),
-                    })}
-                />
             </Drawer.Navigator>
         </NavigationContainer>
     )
@@ -282,7 +261,6 @@ export default function App() {
 const styles = StyleSheet.create({
     icon: {
         paddingRight: 0,
-        // width: 15
     },
     textSignOut: {
         fontWeight: "bold",

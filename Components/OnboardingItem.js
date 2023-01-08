@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     },
     description: {
         fontFamily: "SFcompactRegular",
-        fontSize: 12,
+        fontSize: 14,
         color: 'black',
         textAlign: 'center',
         paddingHorizontal: 32,
