@@ -109,9 +109,21 @@ function MoveMoneyStack() {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="Move Money Initial" component={MoveMoney} />
-      <Stack.Screen name="Transfer Money" component={TransferMoney} />
+      <Stack.Screen name="Transfer Money" component={InternalTransferStack} />
     </Stack.Navigator>
   )
+}
+
+/* Create a double-nested internal transfer stack. */
+function InternalTransferStack() {
+    return (
+        <Stack.Navigator screenOptions = {{headerShown: false}}>
+            <Stack.Screen
+                name = "Internal Transfer Screen"
+                component = {TransferMoney}
+            />
+        </Stack.Navigator>
+    )
 }
 
 /* Create a nested more options stack. */
