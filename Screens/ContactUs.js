@@ -1,11 +1,17 @@
+/* The ContactUs.js file will contain the code for the contact us screen. */
+
+/* Import statements. */
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Icon } from "react-native-elements";
 
+/**
+ * The ContactUs() function is called when the contact us screen is opened.
+ * @returns The screen to display.
+ */
 export default function ContactUs() {
   const navigation = useNavigation();
-
   return (
     <View style={styles.container}>
         <Pressable
@@ -27,6 +33,8 @@ export default function ContactUs() {
     </View>
   );
 }
+
+/* The styles used. */
 const styles = StyleSheet.create({
     text: {
         color: "#3070B6",

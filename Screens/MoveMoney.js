@@ -1,3 +1,6 @@
+/* The MoveMoney.js file contains the code for the money transfer options screen. */
+
+/* Import statement, */
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import {
@@ -7,6 +10,7 @@ import {
 import { Icon } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
+/* The money transfer options. */
 const DATA = [
     {
         id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
@@ -25,9 +29,14 @@ const DATA = [
     },
 ];
 
+/**
+ * The MoveMoney() function is called when the money transfer options screen is opened.
+ * @returns The screen to display.
+ */
 export default function MoveMoney() {
     const navigation = useNavigation();
 
+    /* Navigate to the correct screen. */
     const goToScreen = ({ title }) => {
         switch (title) {
             case "Make Internal Transfer":
@@ -59,6 +68,7 @@ export default function MoveMoney() {
     );
     const renderItem = ({ item }) => <Item title={item.title} icon={item.icon} />;
 
+    /* Return the screen. */
     return (
         <SafeAreaView style={styles.container}>
             <FlatList
@@ -70,6 +80,7 @@ export default function MoveMoney() {
     );
 }
 
+/* The styles used. */
 const styles = StyleSheet.create({
     container: {
         flex: 1,

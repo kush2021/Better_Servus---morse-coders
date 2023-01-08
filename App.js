@@ -1,3 +1,6 @@
+/* The App.js will contain the initialization code for the Better Servus app. */
+
+/* Import statements. */
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from "@react-navigation/drawer";
 import { getFocusedRouteNameFromRoute, NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -20,8 +23,14 @@ import FeedbackSupport from "./Screens/FeedbackSupport";
 import LoginScreen from "./Screens/LoginScreen";
 import More from "./Screens/More";
 import MoveMoney from './Screens/MoveMoney';
+import ChooseAccounts from "./Screens/ChooseAccounts";
 import ETransfer from "./Screens/ETransfer";
 
+/**
+ * The getHeaderTitle() function will get the title of the current screen.
+ * @param {*} route The current route.
+ * @returns The title.
+ */
 function getHeaderTitle(route) {
   const routeName = getFocusedRouteNameFromRoute(route);
   switch(routeName) {
@@ -33,21 +42,26 @@ function getHeaderTitle(route) {
       return "Move Money";
     case "Transfer Money":
       return "Transfer Money";
-    case "BranchATM":
+    case "Branch ATM Page":
         return "Find Locations";
-    case "ChangePassword":
+    case "ChangePassword Page":
         return "Change Password";
-    case "Contact Us":
+    case "Contact Us Page":
         return "Contact Us";
-    case "FaceID":
+    case "Face ID Page":
         return "Face ID";
-    case "FeedbackSupport":
+    case "Feedback Support Page":
         return "Feedback & Support";
     case "e-Transfer Screen":
         return "Interac e-Transfer";
   }
 }
 
+/**
+ * The CustomDrawerContent() function defines how the drawer navigation should behave,
+ * @param {*} props The properties of the drawer.
+ * @returns The drawer object.
+ */
 function CustomDrawerContent(props) {
   const navigation = useNavigation();
     return (
@@ -80,9 +94,11 @@ function CustomDrawerContent(props) {
     );
 }
 
+/* Create navigation objects. */
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 
+/* Create a nested account stack. */
 function AccountStack() {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
@@ -92,16 +108,34 @@ function AccountStack() {
   )
 }
 
+/* Create a nested money transfer stack. */
 function MoveMoneyStack() {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="Move Money Initial" component={MoveMoney} />
-      <Stack.Screen name="Transfer Money" component={TransferMoney} />
+      <Stack.Screen name="Transfer Money" component={InternalTransferStack} />
       <Stack.Screen name = "e-Transfer Screen" component={ETransfer} />
     </Stack.Navigator>
   )
 }
 
+/* Create a doubly-nested internal transfer stack. */
+function InternalTransferStack() {
+    return (
+        <Stack.Navigator screenOptions = {{headerShown: false}}>
+            <Stack.Screen
+                name = "Internal Transfer Screen"
+                component = {TransferMoney}
+            />
+            <Stack.Screen
+                name = "Choose Account Screen"
+                component = {ChooseAccounts}
+            />
+        </Stack.Navigator>
+    )
+}
+
+/* Create a nested more options stack. */
 function MoreStack() {
     return (
         <Stack.Navigator screenOptions={{headerShown: false}}>
@@ -115,16 +149,20 @@ function MoreStack() {
     )
 }
 
+/**
+ * The App() function is called when the app is launched.
+ * @returns The screens to display.
+ */
 export default function App() {
     const [loaded] = useFonts({
         SFcompactRegular: require('./assets/fonts/SF-Compact-Text-Regular.otf'),
         SFcompactSemibold: require('./assets/fonts/SF-Compact-Text-Semibold.otf'),
     });
-  
     if (!loaded) {
         return null;
     }
 
+    /* Return the screens. */
     return (
         <NavigationContainer>
             <Drawer.Navigator
@@ -205,6 +243,7 @@ export default function App() {
     )
 }
 
+/* The styles used. */
 const styles = StyleSheet.create({
     icon: {
         paddingRight: 0,

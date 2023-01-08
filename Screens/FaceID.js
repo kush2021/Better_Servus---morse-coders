@@ -1,8 +1,15 @@
+/* The FaceID.js screen will contain the code for the face ID screen. */
+
+/* Import statements. */
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 
+/**
+ * The FaceID() function is called when the face ID screen is opened.
+ * @returns The screen to display.
+ */
 export default function FaceID() {
   const navigation = useNavigation();
   return (
@@ -14,6 +21,8 @@ export default function FaceID() {
       </View>
   );
 }
+
+/* The styles used. */
 const styles = StyleSheet.create({
     button: {
         padding: 20,
