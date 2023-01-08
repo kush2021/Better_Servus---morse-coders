@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { FlatList, StyleSheet, TouchableOpacity, View, Button } from 'react-native';
+import { FlatList, StyleSheet, TouchableOpacity, View, StatusBar, SafeAreaView } from 'react-native';
 import { Text } from 'react-native-elements';
 
 const data = [
@@ -18,14 +18,19 @@ export default function More() {
     switch(name) {
       case "Feedback & Support":
         navigation.navigate("More", {screen: "Feedback Support Page"});
+        return;
       case "Face ID":
         navigation.navigate("More", {screen: "Face ID Page"});
+        return;
       case "Change Password":
-        navigation.navigate("More", {screen: "Change Password Page"});
+        navigation.navigate("More", {screen: "Change Password Page"})
+        return;
       case "Branch & ATM Locations":
         navigation.navigate("More", {screen: "Branch ATM Page"});
+        return;
       case "Contact Us":
         navigation.navigate("More", {screen: "Contact Us Page"});
+        return;
     }
   };
 
@@ -35,7 +40,7 @@ export default function More() {
         goToScreen({name});
       }}
     >
-      <View style={styles.container}>
+      <View style={styles.item}>
         <Text style={styles.name}>{name}</Text>
       </View>
     </TouchableOpacity>
@@ -44,37 +49,40 @@ export default function More() {
   const renderItem = ({item}) => <Item name={item.name} />;
   
   return (
-    <View style={styles.screen}>
+    <SafeAreaView style={styles.container}>
       <FlatList
         data={data}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       />
-    </View>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
-  screen: {
-    marginTop: 10,
-  },
-  container: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    backgroundColor: "white",
-    marginHorizontal: 15,
-    marginVertical: 5,
-    borderRadius: 10,
-    padding: 20,
-    shadowColor: '#171717',
-    shadowOffset: {width: -2, height: 4},
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-  },
-  name: {
-    fontSize: 15,
-    fontFamily: "SFcompactRegular",
-  }
-})
+    screen: {
+        marginTop: 10,
+    },
+    container: {
+        flex: 1,
+        marginTop: StatusBar.currentHeight || 0,
+    },
+    name: {
+        fontSize: 15,
+        fontFamily: "SFcompactRegular",
+    },
+    item: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        backgroundColor: "white",
+        marginHorizontal: 15,
+        marginVertical: 5,
+        borderRadius: 10,
+        padding: 20,
+        shadowColor: "#171717",
+        shadowOffset: { width: -2, height: 4 },
+        shadowOpacity: 0.1,
+        shadowRadius: 2,
+    },
+});
