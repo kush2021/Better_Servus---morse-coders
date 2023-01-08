@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
-import { FlatList, StyleSheet, TouchableOpacity, View, StatusBar, SafeAreaView } from 'react-native';
+import React from 'react';
+import { FlatList, SafeAreaView, StatusBar, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Text } from 'react-native-elements';
 
 const data = [
@@ -60,12 +60,9 @@ export default function More() {
 }
 
 const styles = StyleSheet.create({
-    screen: {
-        marginTop: 10,
-    },
     container: {
         flex: 1,
-        marginTop: StatusBar.currentHeight || 0,
+        marginTop: StatusBar.currentHeight || 10,
     },
     name: {
         fontSize: 15,

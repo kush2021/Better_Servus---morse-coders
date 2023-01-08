@@ -5,13 +5,6 @@ import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Text } from 'react-native-elements';
 import { db } from '../firebase';
 
-const data = [
-  {id: 1, name: "Personal Savings", balance: 1299.89},
-  {id: 2, name: "Vacation", balance: 287.90},
-  {id: 3, name: "Emergency Fund", balance: 2249.24},
-  {id: 4, name: "Servus Rewards", balance: 12.74}
-]
-
 export default function Accounts() {
   const [accounts, setAccounts] = useState([]);
   

@@ -6,13 +6,6 @@ import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { db } from '../firebase';
 
-data = [
-    {id: 1, date: "2023-01-01", title: "AFT Pre-Authorized Debit WS", amount: "12.59", spend: true},
-    {id: 2, date: "2022-12-22", title: "AFT Pre-Authorized GOODLIFE CLUBS", amount: "28.34", spend: true},
-    {id: 3, date: "2023-01-05", title: "Interac e-Transfer In", amount: "178.94", spend: false},
-    {id: 4, date: "2023-01-01", title: "Transfer Out", amount: "100.00", spend: true},
-];
-
 export default function SingleAccount() {
     const route = useRoute();
     const navigation = useNavigation();

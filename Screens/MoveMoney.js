@@ -1,12 +1,8 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import {
-    SafeAreaView,
-    View,
-    FlatList,
-    StyleSheet,
-    Text,
-    StatusBar,
+    FlatList, SafeAreaView, StatusBar, StyleSheet,
+    Text, View
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
@@ -60,12 +56,9 @@ export default function MoveMoney() {
 }
 
 const styles = StyleSheet.create({
-    screen: {
-        marginTop: 10,
-    },
     container: {
         flex: 1,
-        marginTop: StatusBar.currentHeight || 0,
+        marginTop: StatusBar.currentHeight || 10,
         
     },
     item: {
