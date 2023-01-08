@@ -1,8 +1,9 @@
+/* The App.js will contain the initialization code for the Better Servus app. */
+
+/* Import statements. */
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from "@react-navigation/drawer";
 import { getFocusedRouteNameFromRoute, NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import SingleAccount from "./Screens/SingleAccount";
-import TransferMoney from "./Screens/TransferMoney"
 import { useFonts } from 'expo-font';
 import { signOut } from "firebase/auth";
 import { StyleSheet, View } from "react-native";
@@ -14,7 +15,9 @@ import { auth } from "./firebase";
 import Accounts from "./Screens/Accounts";
 import BranchATM from "./Screens/BranchATM";
 import ChangePassword from "./Screens/ChangePassword";
+import ChooseAccounts from "./Screens/ChooseAccounts";
 import ContactUs from "./Screens/ContactUs";
+import ETransfer from "./Screens/ETransfer";
 import FaceID from "./Screens/FaceID";
 import FeedbackSupport from "./Screens/FeedbackSupport";
 import LoginScreen from "./Screens/LoginScreen";
@@ -26,7 +29,15 @@ import { useEffect, useState } from "react";
 
 
 
+import Insights from "./Screens/Insights";
+import SingleAccount from "./Screens/SingleAccount";
+import TransferMoney from "./Screens/TransferMoney";
 
+/**
+ * The getHeaderTitle() function will get the title of the current screen.
+ * @param {*} route The current route.
+ * @returns The title.
+ */
 function getHeaderTitle(route) {
   const routeName = getFocusedRouteNameFromRoute(route);
   switch(routeName) {
@@ -38,19 +49,26 @@ function getHeaderTitle(route) {
       return "Move Money";
     case "Transfer Money":
       return "Transfer Money";
-    case "BranchATM":
+    case "Branch ATM Page":
         return "Find Locations";
-    case "ChangePassword":
+    case "ChangePassword Page":
         return "Change Password";
-    case "Contact Us":
+    case "Contact Us Page":
         return "Contact Us";
-    case "FaceID":
+    case "Face ID Page":
         return "Face ID";
-    case "FeedbackSupport":
+    case "Feedback Support Page":
         return "Feedback & Support";
+    case "e-Transfer Screen":
+        return "Interac e-Transfer";
   }
 }
 
+/**
+ * The CustomDrawerContent() function defines how the drawer navigation should behave,
+ * @param {*} props The properties of the drawer.
+ * @returns The drawer object.
+ */
 function CustomDrawerContent(props) {
   const navigation = useNavigation();
     return (
@@ -83,9 +101,11 @@ function CustomDrawerContent(props) {
     );
 }
 
+/* Create navigation objects. */
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 
+/* Create a nested account stack. */
 function AccountStack() {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
@@ -95,15 +115,34 @@ function AccountStack() {
   )
 }
 
+/* Create a nested money transfer stack. */
 function MoveMoneyStack() {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="Move Money Initial" component={MoveMoney} />
-      <Stack.Screen name="Transfer Money" component={TransferMoney} />
+      <Stack.Screen name="Transfer Money" component={InternalTransferStack} />
+      <Stack.Screen name = "e-Transfer Screen" component={ETransfer} />
     </Stack.Navigator>
   )
 }
 
+/* Create a doubly-nested internal transfer stack. */
+function InternalTransferStack() {
+    return (
+        <Stack.Navigator screenOptions = {{headerShown: false}}>
+            <Stack.Screen
+                name = "Internal Transfer Screen"
+                component = {TransferMoney}
+            />
+            <Stack.Screen
+                name = "Choose Account Screen"
+                component = {ChooseAccounts}
+            />
+        </Stack.Navigator>
+    )
+}
+
+/* Create a nested more options stack. */
 function MoreStack() {
     return (
         <Stack.Navigator screenOptions={{headerShown: false}}>
@@ -117,6 +156,11 @@ function MoreStack() {
     )
 }
 
+
+/**
+ * The App() function is called when the app is launched.
+ * @returns The screens to display.
+ */
 export default function App() {
 
     let [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -133,11 +177,11 @@ export default function App() {
         SFcompactRegular: require('./assets/fonts/SF-Compact-Text-Regular.otf'),
         SFcompactSemibold: require('./assets/fonts/SF-Compact-Text-Semibold.otf'),
     });
-  
     if (!loaded) {
         return null;
     }
 
+    /* Return the screens. */
     return (
         <NavigationContainer>
             <Drawer.Navigator
@@ -159,21 +203,21 @@ export default function App() {
                 }}
 
               />
-                <Drawer.Screen
-                    name="My Accounts"
-                    component={AccountStack}
-                    options={({ route }) => ({
-                        headerTitle: getHeaderTitle(route),
-                        drawerIcon: () => (
-                            <Icon
-                                name="dollar-sign"
-                                type="feather"
-                                color="#ABAFBA"
-                                size="15"
-                                style={styles.icon}
-                            />
-                        ),
-                    })}
+            <Drawer.Screen
+                name="My Accounts"
+                component={AccountStack}
+                options={({ route }) => ({
+                    headerTitle: getHeaderTitle(route), 
+                    drawerIcon: () => (
+                        <Icon
+                            name="dollar-sign"
+                            type="feather"
+                            color="#3070B6"
+                            size="15"
+                            style={styles.icon}
+                        />
+                    ),
+                })}
                 />
                 <Drawer.Screen
                     name="Move Money"
@@ -184,7 +228,7 @@ export default function App() {
                             <Icon
                                 name="refresh-cw"
                                 type="feather"
-                                color="#ABAFBA"
+                                color="#3070B6"
                                 size="15"
                                 style={styles.icon}
                             />
@@ -200,7 +244,7 @@ export default function App() {
                               <Icon
                                   name="plus"
                                   type="feather"
-                                  color="#ABAFBA"
+                                  color="#3070B6"
                                   size="15"
                                   style={styles.icon}
                               />
@@ -213,18 +257,35 @@ export default function App() {
                     drawerItemStyle: {height: 0},
                   }}
                 />
+                <Drawer.Screen
+                    name="Insights"
+                    component={Insights}
+                    options={({route}) => ({
+                        headerTitle: getHeaderTitle(route),
+                        drawerIcon: () => (
+                              <Icon
+                                  name="star"
+                                  type="feather"
+                                  color="#ABAFBA"
+                                  size="15"
+                                  style={styles.icon}
+                              />
+                          ),
+                    })}
+                />
             </Drawer.Navigator>
         </NavigationContainer>
     )
 }
 
+/* The styles used. */
 const styles = StyleSheet.create({
     icon: {
         paddingRight: 0,
-        width: 15
+        // width: 15
     },
     textSignOut: {
         fontWeight: "bold",
-        color: "black"
+        color: "black",
     }
 });

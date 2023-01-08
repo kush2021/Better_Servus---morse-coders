@@ -1,57 +1,79 @@
+/* The SingeAccounbt.js file contains the code for viewing a single account. */
+
+/* Import statements. */
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { doc, getDoc } from "firebase/firestore";
 import moment from "moment";
-import React, { useEffect } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { Pressable } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { Icon } from 'react-native-elements';
+import { db } from '../firebase';
 
-data = [
-    {id: 1, date: "2023-01-01", title: "AFT Pre-Authorized Debit WS", amount: "12.59", spend: true},
-    {id: 2, date: "2022-12-22", title: "AFT Pre-Authorized GOODLIFE CLUBS", amount: "28.34", spend: true},
-    {id: 3, date: "2023-01-05", title: "Interac e-Transfer In", amount: "178.94", spend: false},
-    {id: 4, date: "2023-01-01", title: "Transfer Out", amount: "100.00", spend: true},
-];
-
+/**
+ * The SingleAccount() function is called when a single account screen is opened.
+ * @returns The screen to display.
+ */
 export default function SingleAccount() {
     const route = useRoute();
     const navigation = useNavigation();
+    const [transactions, setTransactions] = useState([]);
 
+    /* Get the account transactions from Firebase. */
     useEffect(() => {
-        navigation.setOptions({title: route.params.name})
-    }, [])
+        async function getData() {
+            const docRef = doc(db, "accounts", route.params.id);
+            const docSnap = await getDoc(docRef);
+            setTransactions(docSnap.data().transactions);
+        }
+        getData();
+    }, []);
 
+    /* Parse and convert the data. */
+    const parseDate = (firebaseDate) => {
+        const fireBaseTime = new Date(firebaseDate["seconds"] * 1000 + firebaseDate["nanoseconds"] / 1000000);
+        
+        const date = fireBaseTime.toDateString();
+        return moment(date).format("DD MMM YYYY");
+    }
+
+    /* Define how the transactions should render. */
     const renderItem = ({item}) => (
         <View>
-            <Text style={styles.itemDate}>{moment(item.date).format("DD MMM YYYY")}</Text>
+            <Text style={styles.itemDate}>{parseDate(item.date)}</Text>
             <View style={styles.itemContainer}>
                 <Text style={styles.itemTitle}>{item.title}</Text>
-                <Text style={[styles.itemBalance, item.spend ? styles.minus : styles.add]}>{item.spend ? "-" : "+"}${item.amount}</Text>
+                <Text style={[styles.itemBalance, item.spend ? styles.minus : styles.add]}>{item.spend ? "-" : "+"}${parseFloat(item.amount).toFixed(2).toLocaleString()}</Text>
             </View>
         </View>
     )
     
+    /* Return the screen. */
     return (
         <View>
-            <Pressable style={styles.button} onPress={() => (navigation.goBack())}>
-                <Icon 
-                    name="arrow-left"
-                    type="feather"
-                    size="25"
-                />
-            </Pressable>
+            <View style={styles.header}>
+                <Pressable style={styles.button} onPress={() => (navigation.goBack())}>
+                    <Icon 
+                        name="arrow-left"
+                        type="feather"
+                        size="25"
+                        />
+                </Pressable>
+                <Text style={styles.headerText}>{route.params.name}</Text>
+            </View>
             <View style={styles.balanceOuter}>
                 <View style={styles.balanceContainer}>
                     <Text style={styles.balanceText}>Balance</Text>
-                    <Text style={styles.balanceMoney}>${route.params.balance.toLocaleString()}</Text>
+                    <Text style={styles.balanceMoney}>${parseFloat(route.params.balance).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
                 </View>
                 <View style={styles.balanceContainerTwo}>
                     <Text style={styles.balanceTextTwo}>Available Balance</Text>
-                    <Text style={styles.balanceMoneyTwo}>${route.params.balance.toLocaleString()}</Text>
+                    <Text style={styles.balanceMoneyTwo}>${parseFloat(route.params.balance).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
                 </View>
             </View>
 
             <FlatList
-                data={data}
+                style={styles.list}
+                data={transactions}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
             />
@@ -59,7 +81,20 @@ export default function SingleAccount() {
     )
 }
 
+/* The styles used. */
 const styles = StyleSheet.create({
+    header: {
+        flexDirection: 'row',
+        alignItems: "center",
+    },  
+    headerText:{
+        fontFamily: "SFcompactSemibold",
+        fontSize: 24,
+        marginTop: 15,
+        marginLeft: "auto",
+        marginRight: "auto",
+        paddingRight: 45,
+    },
     balanceOuter: {
         backgroundColor: "#3070B6",
         shadowColor: '#171717',
@@ -115,7 +150,6 @@ const styles = StyleSheet.create({
         paddingTop: 20,
         borderRadius: 4,
         alignItems: "flex-start"
-        
     },
     itemContainer: {
         display: "flex",
@@ -135,20 +169,16 @@ const styles = StyleSheet.create({
     },
     itemDate: {
         paddingLeft: 15,
-        fontWeight: "500",
+        fontFamily: "SFcompactSemibold",
         color: "#3070B6"
-    },
-    text: {
-        fontSize: 16,
-        lineHeight: 21,
-        fontWeight: "bold",
-        letterSpacing: 0.25,
-        color: "black"
     },
     add: {
         color: "green"
     },
     minus: {
         color: "red"
+    },
+    list: {
+        marginBottom: 200,
     }
 })

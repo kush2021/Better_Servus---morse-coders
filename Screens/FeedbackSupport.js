@@ -1,11 +1,17 @@
+/* The FeedbackSupport.js file contains the code for the feedback and support screen. */
+
+/* Import statements. */
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Icon } from "react-native-elements";
 
+/**
+ * The FeedbackSupport() function is called when the feedback and support screen is opened.
+ * @returns The screen to display.
+ */
 export default function FeedbackSupport() {
   const navigation = useNavigation();
-  
   return (
       <View>
           <Pressable style={styles.button} onPress={() => navigation.goBack()}>
@@ -49,6 +55,8 @@ export default function FeedbackSupport() {
       </View>
   );
 }
+
+/* The styles used. */
 const styles = StyleSheet.create({
     largetext1: {
         color: "#3070B6",
@@ -93,7 +101,7 @@ const styles = StyleSheet.create({
     emailText: {
         color: "#3070B6",
         fontSize: 17,
-        fontFamily: "SFcompactCompact",
+        fontFamily: "SFcompactRegular",
         textAlign: "center",
         paddingVertical: 20,
         paddingHorizontal: 10,
