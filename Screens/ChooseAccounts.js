@@ -45,18 +45,21 @@ export default function ChooseAccounts() {
 	}, [])
 
 	/* Define how the accounts should render. */
-	const renderItem = ({item}) => (
-		<TouchableOpacity>
-			<View style = {styles.container}>
-				<Text style = {styles.name}>
-					{item.name}
-				</Text>
-				<Text style = {styles.balance}>
-					{item.amount.toLocaleString()}
-				</Text>
-			</View>
-		</TouchableOpacity>
-	)
+	const renderItem = ({ item }) => (
+        <TouchableOpacity onPress={() =>
+			navigation.navigate("Transfer Money", {
+				screen: "Internal Transfer Screen",
+				params: { account: "Account Name" },
+			})
+		}>
+            <View style={styles.container}>
+                <Text style={styles.name}>{item.name}</Text>
+                <Text style={styles.balance}>
+                    {item.amount.toLocaleString()}
+                </Text>
+            </View>
+        </TouchableOpacity>
+    );
 
 	/* Return the screen. */
 	return (
