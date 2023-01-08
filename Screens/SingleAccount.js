@@ -1,3 +1,6 @@
+/* The SingeAccounbt.js file contains the code for viewing a single account. */
+
+/* Import statements. */
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { doc, getDoc } from "firebase/firestore";
 import moment from "moment";
@@ -6,11 +9,16 @@ import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { db } from '../firebase';
 
+/**
+ * The SingleAccount() function is called when a single account screen is opened.
+ * @returns The screen to display.
+ */
 export default function SingleAccount() {
     const route = useRoute();
     const navigation = useNavigation();
     const [transactions, setTransactions] = useState([]);
 
+    /* Get the account transactions from Firebase. */
     useEffect(() => {
         async function getData() {
             const docRef = doc(db, "accounts", route.params.id);
@@ -20,6 +28,7 @@ export default function SingleAccount() {
         getData();
     }, []);
 
+    /* Parse and convert the data. */
     const parseDate = (firebaseDate) => {
         const fireBaseTime = new Date(firebaseDate["seconds"] * 1000 + firebaseDate["nanoseconds"] / 1000000);
         
@@ -27,6 +36,7 @@ export default function SingleAccount() {
         return moment(date).format("DD MMM YYYY");
     }
 
+    /* Define how the transactions should render. */
     const renderItem = ({item}) => (
         <View>
             <Text style={styles.itemDate}>{parseDate(item.date)}</Text>
@@ -37,6 +47,7 @@ export default function SingleAccount() {
         </View>
     )
     
+    /* Return the screen. */
     return (
         <View>
             <View style={styles.header}>
@@ -70,6 +81,7 @@ export default function SingleAccount() {
     )
 }
 
+/* The styles used. */
 const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
