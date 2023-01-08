@@ -1,20 +1,21 @@
-import "react-native-gesture-handler";
-import { NavigationContainer } from "@react-navigation/native";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import Accounts from "./Screens/Accounts";
-import More from "./Screens/More";
-import { Icon } from "react-native-elements";
-import { StyleSheet } from "react-native";
-import { DrawerContentScrollView, DrawerItemList, DrawerItem } from "@react-navigation/drawer";
-import { Text } from "react-native-elements";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { View } from "react-native";
-import MoveMoney from './Screens/MoveMoney';
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from "@react-navigation/drawer";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { useFonts } from 'expo-font';
+import { signOut } from "firebase/auth";
+import { StyleSheet, View } from "react-native";
+import { Icon, Text } from "react-native-elements";
+import "react-native-gesture-handler";
+import { SafeAreaView } from "react-native-safe-area-context";
+import "./firebase";
+import { auth } from "./firebase";
+import Accounts from "./Screens/Accounts";
+import LoginScreen from "./Screens/LoginScreen";
+import More from "./Screens/More";
+import MoveMoney from './Screens/MoveMoney';
 import SingleAccount from './Screens/SingleAccount';
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 function CustomDrawerContent(props) {
+  const navigation = useNavigation();
     return (
         <SafeAreaView
             style={{ flex: 1 }}
@@ -25,6 +26,10 @@ function CustomDrawerContent(props) {
             </DrawerContentScrollView>
             <View>
                 <DrawerItem
+                    onPress={async () => {
+                      await signOut(auth);
+                      navigation.navigate("auth");
+                    }}  
                     label={() => (
                         <Text style={styles.textSignOut}>
                             Sign Out
@@ -47,12 +52,11 @@ function CustomDrawerContent(props) {
 const Drawer = createDrawerNavigator();
 
 export default function App() {
-
     const [loaded] = useFonts({
         SFcompactRegular: require('./assets/fonts/SF-Compact-Text-Regular.otf'),
-        SFcompactSemibold: require('./assets/fonts/SF-Compact-Text-SemiboldItalic.otf'),
+        SFcompactSemibold: require('./assets/fonts/SF-Compact-Text-Semibold.otf'),
     });
-      
+  
     if (!loaded) {
         return null;
     }
@@ -66,7 +70,18 @@ export default function App() {
                     headerTintColor: "#fff",
                 }}
                 drawerContent={(props) => <CustomDrawerContent {...props} />}
+                initialRouteName="auth"
             >
+              <Drawer.Screen
+                name="auth"
+                component={LoginScreen}
+                options={{
+                  drawerItemStyle: { height: 0 },
+                  swipeEnabled: false,
+                  headerShown: false,
+                }}
+
+              />
                 <Drawer.Screen
                     name="Accounts"
                     component={Accounts}
@@ -113,10 +128,11 @@ export default function App() {
                     }}
                 />
                 <Drawer.Screen name="Account"
-                component={SingleAccount} 
-                options={{
-                    drawerItemStyle: {height: 0}
-                }}/>
+                  component={SingleAccount} 
+                  options={{
+                    drawerItemStyle: {height: 0},
+                  }}
+                />
             </Drawer.Navigator>
         </NavigationContainer>
     );
