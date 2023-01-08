@@ -1,3 +1,6 @@
+/* The TransferMoney.js file contains the code for transferring money between accounts. */
+
+/* Import statements. */
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import {
@@ -11,9 +14,14 @@ import {
 import { Icon } from "react-native-elements";
 import { TextInput } from "react-native-gesture-handler";
 
+/**
+ * The TransferMoney() function is called when the internal transfer screen is opened.
+ * @returns The screen to display.
+ */
 export default function TransferMoney() {
     const navigation = useNavigation();
 
+    /* Return the screen. */
     return (
         <SafeAreaView style={styles.container}>
             <Pressable
@@ -48,6 +56,7 @@ export default function TransferMoney() {
     );
 }
 
+/* The styles used. */
 const styles = StyleSheet.create({
     container: {
         flex: 1,

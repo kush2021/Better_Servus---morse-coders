@@ -1,8 +1,12 @@
+/* The More.js file contains the code for the more options screen. */
+
+/* Import statement. */
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { FlatList, SafeAreaView, StatusBar, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Text } from 'react-native-elements';
 
+/* The different options. */
 const data = [
   {id: 1, name: "Face ID"},
   {id: 2, name: "Change Password"},
@@ -11,9 +15,14 @@ const data = [
   {id: 5, name: "Feedback & Support"},     //not functional
 ]
 
+/**
+ * The More() function is called when the more options screen is opened.
+ * @returns The screen to display.
+ */
 export default function More() {
   const navigation = useNavigation();
 
+  /* Navigate to the correct screen. */
   const goToScreen = ({name}) => {
     switch(name) {
       case "Feedback & Support":
@@ -34,6 +43,7 @@ export default function More() {
     }
   };
 
+  /* Define how the options should render. */
   const Item = ({ name }) => (
     <TouchableOpacity
       onPress={() => {
@@ -45,9 +55,9 @@ export default function More() {
       </View>
     </TouchableOpacity>
   );
-
   const renderItem = ({item}) => <Item name={item.name} />;
   
+  /* Return the screen. */
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
@@ -59,6 +69,7 @@ export default function More() {
   )
 }
 
+/* The styles used. */
 const styles = StyleSheet.create({
     container: {
         flex: 1,

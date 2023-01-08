@@ -1,3 +1,6 @@
+/* The Accounts.js file will contain the code for the main account-viewing screen. */
+
+/* Import statements. */
 import { useNavigation } from '@react-navigation/native';
 import { collection, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from 'react';
@@ -5,11 +8,15 @@ import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Text } from 'react-native-elements';
 import { db } from '../firebase';
 
+/**
+ * The Accounts() function is called when the account screen is opened.
+ * @returns The screen to display.
+ */
 export default function Accounts() {
   const [accounts, setAccounts] = useState([]);
-  
   const navigation = useNavigation();
 
+  /* Get account data from Firebase. */
   useEffect(() => {
     async function fetchData() {
       const querySnapshot = await getDocs(collection(db, "accounts"));
@@ -23,6 +30,7 @@ export default function Accounts() {
     fetchData();
   }, [])
 
+  /* Navigate to the appropriate screen. */
   const goToAccountScreen = (name, balance, id) => {
     navigation.navigate('Account', {
       name,
@@ -31,6 +39,7 @@ export default function Accounts() {
     });
   };
 
+  /* Define how the account items should appear. */
   const renderItem = ({item}) => (
     <TouchableOpacity onPress={() => {
       goToAccountScreen(item.name, item.amount, item.id);
@@ -42,6 +51,7 @@ export default function Accounts() {
     </TouchableOpacity>
   )
   
+  /* Return the screen. */
   return (
     <View style={styles.screen}>
       <FlatList
@@ -53,6 +63,7 @@ export default function Accounts() {
   )
 }
 
+/* The styles used. */
 const styles = StyleSheet.create({
   screen: {
     marginTop: 10,
