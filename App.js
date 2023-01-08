@@ -23,7 +23,7 @@ import FeedbackSupport from "./Screens/FeedbackSupport";
 import LoginScreen from "./Screens/LoginScreen";
 import More from "./Screens/More";
 import MoveMoney from './Screens/MoveMoney';
-import ChooseAccounts from "./ChooseAccounts";
+import ChooseAccounts from "./Screens/ChooseAccounts";
 
 /**
  * The getHeaderTitle() function will get the title of the current screen.
@@ -41,18 +41,16 @@ function getHeaderTitle(route) {
       return "Move Money";
     case "Transfer Money":
       return "Transfer Money";
-    case "BranchATM":
+    case "Branch ATM Page":
         return "Find Locations";
-    case "ChangePassword":
+    case "ChangePassword Page":
         return "Change Password";
-    case "Contact Us":
+    case "Contact Us Page":
         return "Contact Us";
-    case "FaceID":
+    case "Face ID Page":
         return "Face ID";
-    case "FeedbackSupport":
+    case "Feedback Support Page":
         return "Feedback & Support";
-    case "Choose Account Screen":
-        return "Select An Account";
   }
 }
 
@@ -126,8 +124,8 @@ function InternalTransferStack() {
                 component = {TransferMoney}
             />
             <Stack.Screen
-                component = {ChooseAccounts}
                 name = "Choose Account Screen"
+                component = {ChooseAccounts}
             />
         </Stack.Navigator>
     )
