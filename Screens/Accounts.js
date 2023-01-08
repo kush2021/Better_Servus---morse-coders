@@ -4,10 +4,15 @@
 import { useNavigation } from '@react-navigation/native';
 import { collection, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
 import { Text } from 'react-native-elements';
 import { VictoryAxis, VictoryChart, VictoryPie, VictoryTheme } from "victory-native";
 import { db } from '../firebase';
+import Onboarding from "../Components/Onboarding";
+import Insights from './Insights';
+import OnboardingItem from '../Components/OnboardingItem';
+
+
 
 /**
  * The Accounts() function is called when the account screen is opened.
@@ -70,10 +75,14 @@ export default function Accounts() {
       </View>
     </TouchableOpacity>
   )
+
   
   /* Return the screen. */
   return (
     <View style={styles.screen}>
+      <View style={{height: 200}}>
+        <Insights />
+      </View>
       <Text style={styles.semiHeader}>Spending Summary</Text>
       <View style={styles.graph}>
         <View style={styles.chart}>
@@ -97,6 +106,7 @@ export default function Accounts() {
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       />
+
       {total != 0 && <Text style={styles.totalBalance}>Total Balance: ${parseFloat(total).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>}
     </View>
   )
@@ -126,6 +136,24 @@ const styles = StyleSheet.create({
   balance: {
     fontFamily: "SFcompactSemibold",
     fontSize: 16
+  },
+  welcometext:  {
+    fontSize: 30,
+    fontFamily: "SFcompactSemibold",
+    color: "#3070B6",
+    paddingTop: 30,
+    paddingBottom: 30,
+    textAlign: "left",
+    paddingLeft: 30
+  },
+  insightstext:  {
+    fontSize: 17,
+    fontFamily: "SFcompactRegular",
+    color: "#3070B6",
+    paddingBottom: 30,
+    textAlign: "left",
+    paddingLeft: 30,
+    paddingRight:30
   },
   totalBalance: {
     marginLeft: "auto",

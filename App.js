@@ -23,6 +23,7 @@ import FeedbackSupport from "./Screens/FeedbackSupport";
 import LoginScreen from "./Screens/LoginScreen";
 import More from "./Screens/More";
 import MoveMoney from './Screens/MoveMoney';
+import Insights from "./Screens/Insights";
 import SingleAccount from "./Screens/SingleAccount";
 import TransferMoney from "./Screens/TransferMoney";
 
@@ -149,6 +150,7 @@ function MoreStack() {
     )
 }
 
+
 /**
  * The App() function is called when the app is launched.
  * @returns The screens to display.
@@ -237,6 +239,22 @@ export default function App() {
                   options={{
                     drawerItemStyle: {height: 0},
                   }}
+                />
+                <Drawer.Screen
+                    name="Insights"
+                    component={Insights}
+                    options={({route}) => ({
+                        headerTitle: getHeaderTitle(route),
+                        drawerIcon: () => (
+                              <Icon
+                                  name="star"
+                                  type="feather"
+                                  color="#ABAFBA"
+                                  size="15"
+                                  style={styles.icon}
+                              />
+                          ),
+                    })}
                 />
             </Drawer.Navigator>
         </NavigationContainer>
