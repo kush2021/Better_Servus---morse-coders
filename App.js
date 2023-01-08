@@ -23,6 +23,7 @@ import FeedbackSupport from "./Screens/FeedbackSupport";
 import LoginScreen from "./Screens/LoginScreen";
 import More from "./Screens/More";
 import MoveMoney from './Screens/MoveMoney';
+import ChooseAccounts from "./ChooseAccounts";
 
 /**
  * The getHeaderTitle() function will get the title of the current screen.
@@ -50,6 +51,8 @@ function getHeaderTitle(route) {
         return "Face ID";
     case "FeedbackSupport":
         return "Feedback & Support";
+    case "Choose Account Screen":
+        return "Select An Account";
   }
 }
 
@@ -114,13 +117,17 @@ function MoveMoneyStack() {
   )
 }
 
-/* Create a double-nested internal transfer stack. */
+/* Create a doubly-nested internal transfer stack. */
 function InternalTransferStack() {
     return (
         <Stack.Navigator screenOptions = {{headerShown: false}}>
             <Stack.Screen
                 name = "Internal Transfer Screen"
                 component = {TransferMoney}
+            />
+            <Stack.Screen
+                component = {ChooseAccounts}
+                name = "Choose Account Screen"
             />
         </Stack.Navigator>
     )

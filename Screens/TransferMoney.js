@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import { Icon } from "react-native-elements";
 import { TextInput } from "react-native-gesture-handler";
+import { color } from "react-native-reanimated";
 
 /**
  * The TransferMoney() function is called when the internal transfer screen is opened.
@@ -30,42 +31,59 @@ export default function TransferMoney() {
             >
                 <Icon name="arrow-left" type="feather" size="25" />
             </Pressable>
-            <View style={styles.individualContainer}>
-                <Pressable style={styles.textBox}>
-                    <Text style={styles.text}>From</Text>
-                </Pressable>
-            </View>
-            <View style={styles.individualContainer}>
-                <Pressable style={styles.textBox}>
-                    <Text style={styles.text}>To</Text>
-                </Pressable>
-            </View>
-            <View style={styles.individualContainer}>
-                <Pressable style={styles.textBox}>
-                    <Text style={styles.text}>Amount</Text>
-                    <TextInput>Enter Amount </TextInput>
-                </Pressable>
-            </View>
-            <View style={styles.individualContainer}>
-                <Pressable style={styles.textBox}>
-                    <Text style={styles.text}>Date</Text>
-                    <TextInput>Insert Date Here</TextInput>
-                </Pressable>
-            </View>
+            <Pressable
+                style={styles.individualContainer}
+                onPress = {() => navigation.navigate("Transfer Money", {screen: "Choose Account Screen"})}
+            >
+                <Text style={styles.text}>From</Text>
+            </Pressable>
+            <Pressable
+                style={styles.individualContainer}
+                onPress = {() => navigation.navigate("Transfer Money", {screen: "Choose Account Screen"})}
+            >
+                <Text style={styles.text}>To</Text>
+            </Pressable>
+            <Pressable style={styles.individualContainer}>
+                <TextInput
+                    style = {styles.text}
+                    placeholder = "Amount"
+                    keyboardType="decimal-pad"
+                >
+                </TextInput>
+            </Pressable>
+            <Pressable style={styles.confirmButton}>
+                <Text style = {styles.bigText}>Confirm</Text>
+            </Pressable>
         </SafeAreaView>
     );
 }
 
 /* The styles used. */
 const styles = StyleSheet.create({
+    bigText: {
+        fontSize: 16,
+        fontWeight: "bold",
+        color: "#fff"
+    },
+    confirmButton: {
+        backgroundColor: "#3070B6",
+        marginHorizontal: 15,
+        marginVertical: 5,
+        borderRadius: 10,
+        padding: 10,
+        shadowColor: "#171717",
+        shadowOffset: {width: -2, height: 4},
+        shadowOpacity: 0.1,
+        shadowRadius: 2,
+        height: 65,
+        justifyContent: "center",
+        alignItems: "center"
+    },
     container: {
         flex: 1,
         marginTop: StatusBar.currentHeight || 0,
     },
     individualContainer: {
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
         backgroundColor: "white",
         marginHorizontal: 15,
         marginVertical: 5,
@@ -75,6 +93,8 @@ const styles = StyleSheet.create({
         shadowOffset: { width: -2, height: 4 },
         shadowOpacity: 0.1,
         shadowRadius: 2,
+        height: 65,
+        justifyContent: "center"
     },
     button: {
         padding: 20,
@@ -83,10 +103,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 16,
-        color: "#000",
-    },
-    textBox: {
-        padding: 20,
-        backgroundColor: "white",
-    },
+        color: "#D3D3D3",
+        fontWeight: "600"
+    }
 });
