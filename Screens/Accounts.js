@@ -47,6 +47,7 @@ export default function Accounts() {
   )
 }
 
+
 const styles = StyleSheet.create({
   screen: {
     marginTop: 10,
@@ -67,8 +68,8 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
   },
   name: {
-    fontSize: 15,
     fontFamily: "SFcompactRegular",
+    fontSize: 15
   },
   balance: {
     fontWeight: "600",

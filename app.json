@@ -19,6 +19,9 @@
     ],
     "ios": {
       "supportsTablet": true,
+      "infoPlist": {
+        "NSFaceIDUsageDescription": "This app uses multi-factor authentication to better protect your data."
+      },
       "bundleIdentifier": "com.test12333.betterservus"
     },
     "android": {
