@@ -32,6 +32,10 @@ export default function MoveMoney() {
         switch (title) {
             case "Make Internal Transfer":
                 navigation.navigate("Move Money", {screen: "Transfer Money"});
+                return;
+            case "Interac e-Transfer":
+                navigation.navigate("Move Money", {screen: "e-Transfer Screen"});
+                return;
         }
     };
 

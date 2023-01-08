@@ -20,6 +20,7 @@ import FeedbackSupport from "./Screens/FeedbackSupport";
 import LoginScreen from "./Screens/LoginScreen";
 import More from "./Screens/More";
 import MoveMoney from './Screens/MoveMoney';
+import ETransfer from "./Screens/ETransfer";
 
 function getHeaderTitle(route) {
   const routeName = getFocusedRouteNameFromRoute(route);
@@ -42,6 +43,8 @@ function getHeaderTitle(route) {
         return "Face ID";
     case "FeedbackSupport":
         return "Feedback & Support";
+    case "e-Transfer Screen":
+        return "Interac e-Transfer";
   }
 }
 
@@ -94,6 +97,7 @@ function MoveMoneyStack() {
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="Move Money Initial" component={MoveMoney} />
       <Stack.Screen name="Transfer Money" component={TransferMoney} />
+      <Stack.Screen name = "e-Transfer Screen" component={ETransfer} />
     </Stack.Navigator>
   )
 }
