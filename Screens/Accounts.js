@@ -5,6 +5,8 @@ import { FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
 import { Text } from 'react-native-elements';
 import { db } from '../firebase';
 import Onboarding from "../Components/Onboarding";
+import Insights from './Insights';
+import OnboardingItem from '../Components/OnboardingItem';
 
 
 
@@ -47,8 +49,9 @@ export default function Accounts() {
   
   return (
     <View style={styles.screen}>
-      <Text style={styles.welcometext}>Welcome Mark!</Text>
-      <Text style={styles.insightstext}>We believe in sharing, so let us share some something new with you. Check out our new Insights feature below. Follow your latest trends and easily visualize your finances.</Text>
+      <View style={{height: 200}}>
+        <Insights />
+      </View>
       <FlatList
         data={accounts}
         renderItem={renderItem}

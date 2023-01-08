@@ -5,14 +5,13 @@ import {View, Text, StyleSheet, useWindowDimensions } from 'react-native';
 export default Onboarding = ({item}) => {
 
     const {width} = useWindowDimensions();
+    //const {width} = 50;
+
 
     return(
         <View style={[styles.container, {width}]}>
-
-            <View style = {{flex: 0.3}}>
-                <Text style = {styles.title}>{item.title}</Text>
-                <Text style = {styles.description}>{item.description}</Text>
-            </View>
+            <Text style = {styles.title}>{item.title}</Text>
+            <Text style = {styles.description}>{item.description}</Text>
         </View>
     );
 
@@ -20,9 +19,16 @@ export default Onboarding = ({item}) => {
 
 const styles = StyleSheet.create({
     container: {
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
+        // flex: 1,
+        paddingTop: 20,
+        height: 175,
+        backgroundColor: "white",
+        alignItems: 'center',
+        shadowColor: '#171717',
+        shadowOffset: {width: -2, height: 4},
+        shadowOpacity: 0.1,
+        shadowRadius: 2,
+        paddingHorizontal: 30,
     },
     title:{
         fontWeight: '800',
@@ -30,12 +36,15 @@ const styles = StyleSheet.create({
         color: 'black',
         textAlign: 'center',
         marginBottom: 10,
+        // width: 360,
 
     },
     description: {
         fontWeight: '300',
         color: 'black',
         textAlign: 'center',
-        paddingHorizontal: 64,
+        paddingHorizontal: 32,
+        // paddingVertical: 10,
+        // width: 360,
     }
 });

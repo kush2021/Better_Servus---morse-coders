@@ -17,7 +17,7 @@ export default Onboarding = () => {
 
     const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50}).current;
 
-
+/*
     return(
         <View style={styles.container}>
             <View style={{flex:3}}>
@@ -36,6 +36,20 @@ export default Onboarding = () => {
             onViewableItemsChanged = {viewableItemsCHanged}
             viewabilityConfig={viewConfig}
             ref={slidesRef}
+            />
+            </View>
+        </View>
+    );
+    */
+
+    return(
+        <View style={styles.container}>
+            <View style={{flex:3}}>
+            <FlatList 
+            data = {slides} 
+            renderItem = {({item}) => <OnboardingItem item = {item} /> }
+            horizontal
+            showsHorizontalScrollIndicator
             />
             </View>
         </View>
