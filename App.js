@@ -2,6 +2,11 @@ import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Accounts from "./Screens/Accounts";
+import FaceID from "./Screens/FaceID";
+import ContactUs from "./Screens/ContactUs";
+import ChangePassword from "./Screens/ChangePassword";
+import FeedbackSupport from "./Screens/FeedbackSupport";
+import BranchATM from "./Screens/BranchATM";
 import More from "./Screens/More";
 import { Icon } from "react-native-elements";
 import { StyleSheet } from "react-native";
@@ -17,7 +22,7 @@ import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import TransferMoney from "./Screens/TransferMoney"
 
 function getHeaderTitle(route) {
-  const routeName = getFocusedRouteNameFromRoute(route) ?? "Accounts"
+  const routeName = getFocusedRouteNameFromRoute(route);
   switch(routeName) {
     case "Accounts":
       return "My Accounts";
@@ -27,15 +32,22 @@ function getHeaderTitle(route) {
       return "Move Money";
     case "Transfer Money":
       return "Transfer Money";
+    case "BranchATM":
+        return "Find Locations";
+    case "ChangePassword":
+        return "Change Password";
+    case "Contact Us":
+        return "Contact Us";
+    case "FaceID":
+        return "Face ID";
+    case "FeedbackSupport":
+        return "Feedback & Support";
   }
 }
 
 function CustomDrawerContent(props) {
     return (
-        <SafeAreaView
-            style={{ flex: 1 }}
-            forceInset={{ top: "always", horizontal: "never" }}
-        >
+        <SafeAreaView style={{ flex: 1 }} forceInset={{ top: "always", horizontal: "never" }}>
             <DrawerContentScrollView {...props}>
                 <DrawerItemList {...props} />
             </DrawerContentScrollView>
@@ -81,11 +93,25 @@ function MoveMoneyStack() {
   )
 }
 
+function MoreStack() {
+    return (
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+            <Stack.Screen name="More Options Page" component={More} />
+            <Stack.Screen name="Branch ATM Page" component={BranchATM} />
+            <Stack.Screen name="Change Password Page" component={ChangePassword} />
+            <Stack.Screen name="Contact Us Page" component={ContactUs} />
+            <Stack.Screen name="Face ID Page" component={FaceID} />
+            <Stack.Screen name="Feedback Support Page" component={FeedbackSupport} /> 
+        </Stack.Navigator>
+    )
+}
+
 export default function App() {
 
     const [loaded] = useFonts({
         SFcompactRegular: require('./assets/fonts/SF-Compact-Text-Regular.otf'),
-        SFcompactSemibold: require('./assets/fonts/SF-Compact-Text-SemiboldItalic.otf'),
+        SFcompactSemibold: require('./assets/fonts/SF-Compact-Text-Semibold.otf'),
+
     });
       
     if (!loaded) {
@@ -136,22 +162,23 @@ export default function App() {
                 />
                 <Drawer.Screen
                     name="More"
-                    component={More}
-                    options={{
+                    component={MoreStack}
+                    options={({route}) => ({
+                        headerTitle: getHeaderTitle(route),
                         drawerIcon: () => (
-                            <Icon
-                                name="plus"
-                                type="feather"
-                                color="#ABAFBA"
-                                size="15"
-                                style={styles.icon}
-                            />
-                        ),
-                    }}
+                              <Icon
+                                  name="plus"
+                                  type="feather"
+                                  color="#ABAFBA"
+                                  size="15"
+                                  style={styles.icon}
+                              />
+                          ),
+                    })}
                 />
             </Drawer.Navigator>
         </NavigationContainer>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
