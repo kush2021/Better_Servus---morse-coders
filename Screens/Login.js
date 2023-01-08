@@ -8,7 +8,6 @@ export default class App extends Component {
       password: '',
     };
   
-  
   onLogin() {
     const { email, password } = this.state;
 

@@ -44,8 +44,18 @@ function SignInScreen() {
     <NavigationContainer>
       <Stack.Navigator>
           <Stack.Screen
-            name="Sign In"
-            component={Login}
+            name="Accounts"
+            component={Accounts}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Move Money"
+            component={MoveMoney}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="More"
+            component={More}
             options={{ headerShown: false }}
           />
       </Stack.Navigator>
