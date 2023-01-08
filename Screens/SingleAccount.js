@@ -1,9 +1,10 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { doc, getDoc } from "firebase/firestore";
 import moment from "moment";
-import React, { useEffect } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { Pressable } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { Icon } from 'react-native-elements';
+import { db } from '../firebase';
 
 data = [
     {id: 1, date: "2023-01-01", title: "AFT Pre-Authorized Debit WS", amount: "12.59", spend: true},
@@ -15,14 +16,27 @@ data = [
 export default function SingleAccount() {
     const route = useRoute();
     const navigation = useNavigation();
+    const [transactions, setTransactions] = useState([]);
 
     useEffect(() => {
-        navigation.setOptions({title: route.params.name})
-    }, [])
+        async function getData() {
+            const docRef = doc(db, "accounts", route.params.id);
+            const docSnap = await getDoc(docRef);
+            setTransactions(docSnap.data().transactions);
+        }
+        getData();
+    }, []);
+
+    const parseDate = (firebaseDate) => {
+        const fireBaseTime = new Date(firebaseDate["seconds"] * 1000 + firebaseDate["nanoseconds"] / 1000000);
+        
+        const date = fireBaseTime.toDateString();
+        return moment(date).format("DD MMM YYYY");
+    }
 
     const renderItem = ({item}) => (
         <View>
-            <Text style={styles.itemDate}>{moment(item.date).format("DD MMM YYYY")}</Text>
+            <Text style={styles.itemDate}>{parseDate(item.date)}</Text>
             <View style={styles.itemContainer}>
                 <Text style={styles.itemTitle}>{item.title}</Text>
                 <Text style={[styles.itemBalance, item.spend ? styles.minus : styles.add]}>{item.spend ? "-" : "+"}${item.amount}</Text>
@@ -32,13 +46,16 @@ export default function SingleAccount() {
     
     return (
         <View>
-            <Pressable style={styles.button} onPress={() => (navigation.goBack())}>
-                <Icon 
-                    name="arrow-left"
-                    type="feather"
-                    size="25"
-                />
-            </Pressable>
+            <View style={styles.header}>
+                <Pressable style={styles.button} onPress={() => (navigation.goBack())}>
+                    <Icon 
+                        name="arrow-left"
+                        type="feather"
+                        size="25"
+                        />
+                </Pressable>
+                <Text style={styles.headerText}>{route.params.name}</Text>
+            </View>
             <View style={styles.balanceOuter}>
                 <View style={styles.balanceContainer}>
                     <Text style={styles.balanceText}>Balance</Text>
@@ -51,7 +68,7 @@ export default function SingleAccount() {
             </View>
 
             <FlatList
-                data={data}
+                data={transactions}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
             />
@@ -60,6 +77,18 @@ export default function SingleAccount() {
 }
 
 const styles = StyleSheet.create({
+    header: {
+        flexDirection: 'row',
+        alignItems: "center",
+    },  
+    headerText:{
+        fontFamily: "SFcompactSemibold",
+        fontSize: 24,
+        marginTop: 15,
+        marginLeft: "auto",
+        marginRight: "auto",
+        paddingRight: 45,
+    },
     balanceOuter: {
         backgroundColor: "#3070B6",
         shadowColor: '#171717',

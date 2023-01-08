@@ -1,7 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import { collection, getDocs } from "firebase/firestore";
+import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Text } from 'react-native-elements';
+import { db } from '../firebase';
 
 const data = [
   {id: 1, name: "Personal Savings", balance: 1299.89},
@@ -11,27 +13,38 @@ const data = [
 ]
 
 export default function Accounts() {
-  const [name, setName] = useState("");
-  const [balance, setBalance] = useState(1.0);
+  const [accounts, setAccounts] = useState([]);
   
   const navigation = useNavigation();
 
-  const goToAccountScreen = () => {
+  useEffect(() => {
+    async function fetchData() {
+      const querySnapshot = await getDocs(collection(db, "accounts"));
+      const docs = []
+      querySnapshot.forEach((doc) => {
+        docs.push({id: doc.id, ...doc.data()});
+        // console.log(doc.data());
+      })
+      setAccounts(docs);
+    }
+    fetchData();
+  }, [])
+
+  const goToAccountScreen = (name, balance, id) => {
     navigation.navigate('Account', {
       name,
       balance,
+      id
     });
   };
 
   const renderItem = ({item}) => (
     <TouchableOpacity onPress={() => {
-      setName(item.name);
-      setBalance(item.balance);
-      goToAccountScreen();
+      goToAccountScreen(item.name, item.amount, item.id);
     }}>
       <View style={styles.container}>
         <Text style={styles.name}>{item.name}</Text>
-        <Text style={styles.balance}>${item.balance.toLocaleString()}</Text>
+        <Text style={styles.balance}>${item.amount.toLocaleString()}</Text>
       </View>
     </TouchableOpacity>
   )
@@ -39,7 +52,7 @@ export default function Accounts() {
   return (
     <View style={styles.screen}>
       <FlatList
-        data={data}
+        data={accounts}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       />
