@@ -1,8 +1,6 @@
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from "@react-navigation/drawer";
 import { getFocusedRouteNameFromRoute, NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import SingleAccount from "./Screens/SingleAccount";
-import TransferMoney from "./Screens/TransferMoney"
 import { useFonts } from 'expo-font';
 import { signOut } from "firebase/auth";
 import { StyleSheet, View } from "react-native";
@@ -20,6 +18,8 @@ import FeedbackSupport from "./Screens/FeedbackSupport";
 import LoginScreen from "./Screens/LoginScreen";
 import More from "./Screens/More";
 import MoveMoney from './Screens/MoveMoney';
+import SingleAccount from "./Screens/SingleAccount";
+import TransferMoney from "./Screens/TransferMoney";
 
 function getHeaderTitle(route) {
   const routeName = getFocusedRouteNameFromRoute(route);
@@ -142,21 +142,21 @@ export default function App() {
                 }}
 
               />
-                <Drawer.Screen
-                    name="My Accounts"
-                    component={AccountStack}
-                    options={({ route }) => ({
-                        headerTitle: getHeaderTitle(route),
-                        drawerIcon: () => (
-                            <Icon
-                                name="dollar-sign"
-                                type="feather"
-                                color="#ABAFBA"
-                                size="15"
-                                style={styles.icon}
-                            />
-                        ),
-                    })}
+            <Drawer.Screen
+                name="My Accounts"
+                component={AccountStack}
+                options={({ route }) => ({
+                    headerTitle: getHeaderTitle(route), 
+                    drawerIcon: () => (
+                        <Icon
+                            name="dollar-sign"
+                            type="feather"
+                            color="#3070B6"
+                            size="15"
+                            style={styles.icon}
+                        />
+                    ),
+                })}
                 />
                 <Drawer.Screen
                     name="Move Money"
@@ -167,7 +167,7 @@ export default function App() {
                             <Icon
                                 name="refresh-cw"
                                 type="feather"
-                                color="#ABAFBA"
+                                color="#3070B6"
                                 size="15"
                                 style={styles.icon}
                             />
@@ -183,7 +183,7 @@ export default function App() {
                               <Icon
                                   name="plus"
                                   type="feather"
-                                  color="#ABAFBA"
+                                  color="#3070B6"
                                   size="15"
                                   style={styles.icon}
                               />
@@ -204,10 +204,10 @@ export default function App() {
 const styles = StyleSheet.create({
     icon: {
         paddingRight: 0,
-        width: 15
+        // width: 15
     },
     textSignOut: {
         fontWeight: "bold",
-        color: "black"
+        color: "black",
     }
 });

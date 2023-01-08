@@ -52,11 +52,11 @@ export default function SingleAccount() {
             <View style={styles.balanceOuter}>
                 <View style={styles.balanceContainer}>
                     <Text style={styles.balanceText}>Balance</Text>
-                    <Text style={styles.balanceMoney}>${parseFloat(route.params.balance).toFixed(2).toLocaleString()}</Text>
+                    <Text style={styles.balanceMoney}>${parseFloat(route.params.balance).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
                 </View>
                 <View style={styles.balanceContainerTwo}>
                     <Text style={styles.balanceTextTwo}>Available Balance</Text>
-                    <Text style={styles.balanceMoneyTwo}>${parseFloat(route.params.balance).toFixed(2).toLocaleString()}</Text>
+                    <Text style={styles.balanceMoneyTwo}>${parseFloat(route.params.balance).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
                 </View>
             </View>
 
@@ -157,15 +157,8 @@ const styles = StyleSheet.create({
     },
     itemDate: {
         paddingLeft: 15,
-        fontWeight: "500",
+        fontFamily: "SFcompactSemibold",
         color: "#3070B6"
-    },
-    text: {
-        fontSize: 16,
-        lineHeight: 21,
-        fontWeight: "bold",
-        letterSpacing: 0.25,
-        color: "black"
     },
     add: {
         color: "green"
