@@ -13,6 +13,7 @@ const data = [
 export default function Accounts() {
   const [name, setName] = useState("");
   const [balance, setBalance] = useState(1.0);
+  
   const navigation = useNavigation();
 
   const goToAccountScreen = () => {

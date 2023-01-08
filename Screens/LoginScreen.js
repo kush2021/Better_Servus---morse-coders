@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
-import React, { useEffect, useState } from 'react';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import React, { useState } from 'react';
 import { Pressable, StyleSheet, TextInput, View } from 'react-native';
 import { Icon, Image, Text } from 'react-native-elements';
 import { auth } from "../firebase";
@@ -10,36 +10,73 @@ export default function LoginScreen() {
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const navigation = useNavigation();
+    const [errorOne, setErrorOne] = useState("");
+    const [errorTwo, setErrorTwo] = useState("");
+    const [hasErrorsOne, setHasErrorsOne] = useState(false);
+    const [hasErrorsTwo, setHasErrorsTwo] = useState(false);
+    const [loginButton, setLoginButton] = useState("Sign In");
+    const [signupButton, setsignUpButton] = useState("Sign Up");
 
-    useEffect(() => {
-        // if already logged in, go to accounts
-        const loggedIn = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                // navigation.navigate("Accounts");
-            }
-        });
-        return loggedIn;
-    }, []);
+    const reset = () => {
+        setEmail("");
+        setPassword("");
+        setErrorOne("");
+        setErrorTwo("");
+        setHasErrorsOne(false);
+        setHasErrorsTwo(false);
+        setLoginButton("Sign In");
+        setsignUpButton("Sign Up");
+    }
+
+    const checkErrors = (error) => {
+        setErrorOne("");
+        setErrorTwo("");
+        setHasErrorsOne(false);
+        setHasErrorsTwo(false);
+        
+        if(error && email != "" && password != "") {
+            setErrorOne("invalid email or password");
+            setErrorTwo("invalid email or password");
+            setHasErrorsOne(true);
+            setHasErrorsTwo(true);
+        }
+        if(email == "") {
+            setErrorOne("email cannot be empty");
+            setHasErrorsOne(true);
+        }
+        
+        if(password == "" && isLogin) {
+            setErrorTwo("password cannot be empty");
+            setHasErrorsTwo(true);
+        }
+        
+        if(password.length < 6 && !isLogin) {
+            setErrorTwo("password must be at least 6 characters");
+            setHasErrorsTwo(true);
+        }
+    }
 
     const login = async () => {
+        setLoginButton("Signing in...")
         await signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            const user = userCredential.user;
+            reset();
             navigation.navigate("My Accounts");
         })
         .catch((error) => {
-            console.log(error);
+            checkErrors(error);
         });
     }
 
     const signup = async () => {
+        setsignUpButton("Signing Up...")
         await createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            const user = userCredential.user;
+            reset();
             navigation.navigate("Accounts");
         })
         .catch((error) => {
-            console.log(error);
+            checkErrors(error)
         });
     }
 
@@ -55,6 +92,7 @@ export default function LoginScreen() {
                     />
                     <TextInput style={styles.input} autoCapitalize="none" textContentType="emailAddress" keyboardType="email-address" placeholder="email" onChangeText={newText => setEmail(newText)} clearButtonMode="always" value={email}/>
                 </View>
+                {hasErrorsOne && <Text style={styles.error}>{errorOne}</Text>}
                 <View style={styles.singleInput}>
                     <Icon
                         type="feather"
@@ -63,6 +101,7 @@ export default function LoginScreen() {
                         />
                     <TextInput style={styles.input} placeholder="password" secureTextEntry onChangeText={newText => setPassword(newText)} clearButtonMode="always" value={password}/>
                 </View>
+                {hasErrorsTwo && <Text style={styles.error}>{errorTwo}</Text>}
             </View>
             {isLogin && <Text style={styles.forgotPass}>Forgot Password?</Text>}
 
@@ -72,12 +111,9 @@ export default function LoginScreen() {
                 } else {
                     signup();
                 }
-                setEmail("");
-                setPassword("");
             }}>
-                <Text style={styles.buttonText}>{isLogin ? "Sign In" : "Sign Up"}</Text>
+                <Text style={styles.buttonText}>{isLogin ? loginButton : signupButton}</Text>
             </Pressable>
-
                 <View style={styles.footer}>
                     <Text style={styles.footerText}>
                         {isLogin ? "Need an account?" : "Have an account?"}
@@ -163,5 +199,8 @@ const styles = StyleSheet.create({
     footerText: {
         color: "#8e8e93",
         fontFamily: "SFcompactRegular",
+    }, 
+    error: {
+        color: "red"
     }
 })

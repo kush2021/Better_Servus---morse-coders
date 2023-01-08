@@ -1,18 +1,17 @@
-import React from 'react'
-import { StyleSheet, Text, Pressable, StatusBar } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { Pressable, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { Icon } from 'react-native-elements';
 
 export default function BranchATM() {
   const navigation = useNavigation();
   return (
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
           <Pressable style={styles.button} onPress={() => navigation.goBack()}>
               <Icon name="arrow-left" type="feather" size="25" />
           </Pressable>
           <Text>Your Nearest Branch & ATM Machine!</Text>
-      </SafeAreaView>
+      </View>
   );
 }
 const styles = StyleSheet.create({
