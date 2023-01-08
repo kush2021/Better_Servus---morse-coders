@@ -1,0 +1,30 @@
+//homesApi
+import axios from "axios";
+
+const options = {
+ method: "GET",
+ url: "https://bayut.p.rapidapi.com/properties/list",
+ params: {
+   locationExternalIDs: "5002,6020",
+   purpose: "for-rent",
+   hitsPerPage: "10",
+   page: "0",
+   lang: "en",
+   sort: "city-level-score",
+   rentFrequency: "monthly",
+   categoryExternalID: "4",
+ },
+ headers: {
+   "X-RapidAPI-Key": "5cf25132e5msh07ce895df09bd96p1fb02ajsn623ba5792950",
+   "X-RapidAPI-Host": "bayut.p.rapidapi.com",
+ },
+};
+
+export const getProperties = async () => {
+ try {
+   const response = await axios(options);
+   return response.data.hits;
+ } catch (error) {
+   console.log(error);
+ }
+};

@@ -4,8 +4,6 @@
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from "@react-navigation/drawer";
 import { getFocusedRouteNameFromRoute, NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import SingleAccount from "./Screens/SingleAccount";
-import TransferMoney from "./Screens/TransferMoney"
 import { useFonts } from 'expo-font';
 import { signOut } from "firebase/auth";
 import { StyleSheet, View } from "react-native";
@@ -17,14 +15,17 @@ import { auth } from "./firebase";
 import Accounts from "./Screens/Accounts";
 import BranchATM from "./Screens/BranchATM";
 import ChangePassword from "./Screens/ChangePassword";
+import ChooseAccounts from "./Screens/ChooseAccounts";
 import ContactUs from "./Screens/ContactUs";
+import ETransfer from "./Screens/ETransfer";
 import FaceID from "./Screens/FaceID";
 import FeedbackSupport from "./Screens/FeedbackSupport";
 import LoginScreen from "./Screens/LoginScreen";
 import More from "./Screens/More";
 import MoveMoney from './Screens/MoveMoney';
-import ChooseAccounts from "./Screens/ChooseAccounts";
-import ETransfer from "./Screens/ETransfer";
+import Insights from "./Screens/Insights";
+import SingleAccount from "./Screens/SingleAccount";
+import TransferMoney from "./Screens/TransferMoney";
 
 /**
  * The getHeaderTitle() function will get the title of the current screen.
@@ -149,6 +150,7 @@ function MoreStack() {
     )
 }
 
+
 /**
  * The App() function is called when the app is launched.
  * @returns The screens to display.
@@ -184,21 +186,21 @@ export default function App() {
                 }}
 
               />
-                <Drawer.Screen
-                    name="My Accounts"
-                    component={AccountStack}
-                    options={({ route }) => ({
-                        headerTitle: getHeaderTitle(route),
-                        drawerIcon: () => (
-                            <Icon
-                                name="dollar-sign"
-                                type="feather"
-                                color="#ABAFBA"
-                                size="15"
-                                style={styles.icon}
-                            />
-                        ),
-                    })}
+            <Drawer.Screen
+                name="My Accounts"
+                component={AccountStack}
+                options={({ route }) => ({
+                    headerTitle: getHeaderTitle(route), 
+                    drawerIcon: () => (
+                        <Icon
+                            name="dollar-sign"
+                            type="feather"
+                            color="#3070B6"
+                            size="15"
+                            style={styles.icon}
+                        />
+                    ),
+                })}
                 />
                 <Drawer.Screen
                     name="Move Money"
@@ -209,7 +211,7 @@ export default function App() {
                             <Icon
                                 name="refresh-cw"
                                 type="feather"
-                                color="#ABAFBA"
+                                color="#3070B6"
                                 size="15"
                                 style={styles.icon}
                             />
@@ -225,7 +227,7 @@ export default function App() {
                               <Icon
                                   name="plus"
                                   type="feather"
-                                  color="#ABAFBA"
+                                  color="#3070B6"
                                   size="15"
                                   style={styles.icon}
                               />
@@ -238,6 +240,22 @@ export default function App() {
                     drawerItemStyle: {height: 0},
                   }}
                 />
+                <Drawer.Screen
+                    name="Insights"
+                    component={Insights}
+                    options={({route}) => ({
+                        headerTitle: getHeaderTitle(route),
+                        drawerIcon: () => (
+                              <Icon
+                                  name="star"
+                                  type="feather"
+                                  color="#ABAFBA"
+                                  size="15"
+                                  style={styles.icon}
+                              />
+                          ),
+                    })}
+                />
             </Drawer.Navigator>
         </NavigationContainer>
     )
@@ -247,10 +265,10 @@ export default function App() {
 const styles = StyleSheet.create({
     icon: {
         paddingRight: 0,
-        width: 15
+        // width: 15
     },
     textSignOut: {
         fontWeight: "bold",
-        color: "black"
+        color: "black",
     }
 });
