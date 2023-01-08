@@ -14,6 +14,7 @@ import { useFonts } from 'expo-font';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SingleAccount from "./Screens/SingleAccount";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
+import TransferMoney from "./Screens/TransferMoney"
 
 function getHeaderTitle(route) {
   const routeName = getFocusedRouteNameFromRoute(route) ?? "Accounts"
@@ -22,6 +23,10 @@ function getHeaderTitle(route) {
       return "My Accounts";
     case "Account":
       return "View Account";
+    case "Move Money":
+      return "Move Money";
+    case "Transfer Money":
+      return "Transfer Money";
   }
 }
 
@@ -67,6 +72,15 @@ function AccountStack() {
   )
 }
 
+function MoveMoneyStack() {
+  return (
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name="Move Money Initial" component={MoveMoney} />
+      <Stack.Screen name="Transfer Money" component={TransferMoney} />
+    </Stack.Navigator>
+  )
+}
+
 export default function App() {
 
     const [loaded] = useFonts({
@@ -91,9 +105,9 @@ export default function App() {
                 <Drawer.Screen
                     name="My Accounts"
                     component={AccountStack}
-                    options={({route}) => ({
-                      headerTitle: getHeaderTitle(route),
-                      drawerIcon: () => (
+                    options={({ route }) => ({
+                        headerTitle: getHeaderTitle(route),
+                        drawerIcon: () => (
                             <Icon
                                 name="dollar-sign"
                                 type="feather"
@@ -106,8 +120,9 @@ export default function App() {
                 />
                 <Drawer.Screen
                     name="Move Money"
-                    component={MoveMoney}
-                    options={{
+                    component={MoveMoneyStack}
+                    options={({ route }) => ({
+                        headerTitle: getHeaderTitle(route),
                         drawerIcon: () => (
                             <Icon
                                 name="refresh-cw"
@@ -117,7 +132,7 @@ export default function App() {
                                 style={styles.icon}
                             />
                         ),
-                    }}
+                    })}
                 />
                 <Drawer.Screen
                     name="More"
