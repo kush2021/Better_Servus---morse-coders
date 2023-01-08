@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     emailText: {
         color: "#3070B6",
         fontSize: 17,
-        fontFamily: "SFcompactCompact",
+        fontFamily: "SFcompactRegular",
         textAlign: "center",
         paddingVertical: 20,
         paddingHorizontal: 10,

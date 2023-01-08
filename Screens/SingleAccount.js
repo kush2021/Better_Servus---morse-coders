@@ -42,7 +42,7 @@ export default function SingleAccount() {
             <Text style={styles.itemDate}>{parseDate(item.date)}</Text>
             <View style={styles.itemContainer}>
                 <Text style={styles.itemTitle}>{item.title}</Text>
-                <Text style={[styles.itemBalance, item.spend ? styles.minus : styles.add]}>{item.spend ? "-" : "+"}${item.amount}</Text>
+                <Text style={[styles.itemBalance, item.spend ? styles.minus : styles.add]}>{item.spend ? "-" : "+"}${parseFloat(item.amount).toFixed(2).toLocaleString()}</Text>
             </View>
         </View>
     )
@@ -63,15 +63,16 @@ export default function SingleAccount() {
             <View style={styles.balanceOuter}>
                 <View style={styles.balanceContainer}>
                     <Text style={styles.balanceText}>Balance</Text>
-                    <Text style={styles.balanceMoney}>${route.params.balance.toLocaleString()}</Text>
+                    <Text style={styles.balanceMoney}>${parseFloat(route.params.balance).toFixed(2).toLocaleString()}</Text>
                 </View>
                 <View style={styles.balanceContainerTwo}>
                     <Text style={styles.balanceTextTwo}>Available Balance</Text>
-                    <Text style={styles.balanceMoneyTwo}>${route.params.balance.toLocaleString()}</Text>
+                    <Text style={styles.balanceMoneyTwo}>${parseFloat(route.params.balance).toFixed(2).toLocaleString()}</Text>
                 </View>
             </View>
 
             <FlatList
+                style={styles.list}
                 data={transactions}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
@@ -149,7 +150,6 @@ const styles = StyleSheet.create({
         paddingTop: 20,
         borderRadius: 4,
         alignItems: "flex-start"
-        
     },
     itemContainer: {
         display: "flex",
@@ -184,5 +184,8 @@ const styles = StyleSheet.create({
     },
     minus: {
         color: "red"
+    },
+    list: {
+        marginBottom: 200,
     }
 })

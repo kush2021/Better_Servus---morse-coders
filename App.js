@@ -24,6 +24,7 @@ import LoginScreen from "./Screens/LoginScreen";
 import More from "./Screens/More";
 import MoveMoney from './Screens/MoveMoney';
 import ChooseAccounts from "./Screens/ChooseAccounts";
+import ETransfer from "./Screens/ETransfer";
 
 /**
  * The getHeaderTitle() function will get the title of the current screen.
@@ -51,6 +52,8 @@ function getHeaderTitle(route) {
         return "Face ID";
     case "Feedback Support Page":
         return "Feedback & Support";
+    case "e-Transfer Screen":
+        return "Interac e-Transfer";
   }
 }
 
@@ -111,6 +114,7 @@ function MoveMoneyStack() {
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="Move Money Initial" component={MoveMoney} />
       <Stack.Screen name="Transfer Money" component={InternalTransferStack} />
+      <Stack.Screen name = "e-Transfer Screen" component={ETransfer} />
     </Stack.Navigator>
   )
 }

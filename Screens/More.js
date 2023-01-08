@@ -4,15 +4,15 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { FlatList, SafeAreaView, StatusBar, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Text } from 'react-native-elements';
+import { Icon, Text } from 'react-native-elements';
 
 /* The different options. */
 const data = [
-  {id: 1, name: "Face ID"},
-  {id: 2, name: "Change Password"},
-  {id: 3, name: "Branch & ATM Locations"}, //not functional
-  {id: 4, name: "Contact Us"},             //not functional
-  {id: 5, name: "Feedback & Support"},     //not functional
+  {id: 1, name: "Face ID", icon: "smile"},
+  {id: 2, name: "Change Password", icon: "unlock"},
+  {id: 3, name: "Branch & ATM Locations", icon: "map-pin"}, //not functional
+  {id: 4, name: "Contact Us", icon: "share-2"},             //not functional
+  {id: 5, name: "Feedback & Support", icon: "message-circle"},     //not functional
 ]
 
 /**
@@ -43,19 +43,26 @@ export default function More() {
     }
   };
 
-  /* Define how the options should render. */
-  const Item = ({ name }) => (
+  const Item = ({ name, icon }) => (
     <TouchableOpacity
       onPress={() => {
         goToScreen({name});
       }}
     >
       <View style={styles.item}>
+          <Icon
+            name={icon}
+            type="feather"
+            color="#636366"
+            size="18"
+            style={styles.icon}
+          />
         <Text style={styles.name}>{name}</Text>
       </View>
     </TouchableOpacity>
   );
-  const renderItem = ({item}) => <Item name={item.name} />;
+
+  const renderItem = ({item}) => <Item name={item.name} icon={item.icon} />;
   
   /* Return the screen. */
   return (
@@ -72,25 +79,26 @@ export default function More() {
 /* The styles used. */
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        marginTop: StatusBar.currentHeight || 10,
+      flex: 1,
+      marginTop: StatusBar.currentHeight || 10,
     },
     name: {
-        fontSize: 15,
-        fontFamily: "SFcompactRegular",
+      fontSize: 15,
+      fontFamily: "SFcompactRegular",
+      paddingLeft: 15,
     },
     item: {
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        backgroundColor: "white",
-        marginHorizontal: 15,
-        marginVertical: 5,
-        borderRadius: 10,
-        padding: 20,
-        shadowColor: "#171717",
-        shadowOffset: { width: -2, height: 4 },
-        shadowOpacity: 0.1,
-        shadowRadius: 2,
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      backgroundColor: "white",
+      marginHorizontal: 15,
+      marginVertical: 5,
+      borderRadius: 10,
+      padding: 20,
+      shadowColor: "#171717",
+      shadowOffset: { width: -2, height: 4 },
+      shadowOpacity: 0.1,
+      shadowRadius: 2,
     },
 });

@@ -23,7 +23,6 @@ export default function Accounts() {
       const docs = []
       querySnapshot.forEach((doc) => {
         docs.push({id: doc.id, ...doc.data()});
-        // console.log(doc.data());
       })
       setAccounts(docs);
     }
@@ -46,7 +45,7 @@ export default function Accounts() {
     }}>
       <View style={styles.container}>
         <Text style={styles.name}>{item.name}</Text>
-        <Text style={styles.balance}>${item.amount.toLocaleString()}</Text>
+        <Text style={styles.balance}>${parseFloat(item.amount).toFixed(2).toLocaleString()}</Text>
       </View>
     </TouchableOpacity>
   )
