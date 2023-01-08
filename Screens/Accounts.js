@@ -1,9 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import { collection, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
 import { Text } from 'react-native-elements';
 import { db } from '../firebase';
+import Onboarding from "../Components/Onboarding";
+
+
 
 export default function Accounts() {
   const [accounts, setAccounts] = useState([]);
@@ -40,14 +43,18 @@ export default function Accounts() {
       </View>
     </TouchableOpacity>
   )
+
   
   return (
     <View style={styles.screen}>
+      <Text style={styles.welcometext}>Welcome Mark!</Text>
+      <Text style={styles.insightstext}>We believe in sharing, so let us share some something new with you. Check out our new Insights feature below. Follow your latest trends and easily visualize your finances.</Text>
       <FlatList
         data={accounts}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       />
+
     </View>
   )
 }
@@ -78,5 +85,23 @@ const styles = StyleSheet.create({
   balance: {
     fontWeight: "600",
     fontSize: 16
+  },
+  welcometext:  {
+    fontSize: 30,
+    fontFamily: "SFcompactSemibold",
+    color: "#3070B6",
+    paddingTop: 30,
+    paddingBottom: 30,
+    textAlign: "left",
+    paddingLeft: 30
+  },
+  insightstext:  {
+    fontSize: 17,
+    fontFamily: "SFcompactRegular",
+    color: "#3070B6",
+    paddingBottom: 30,
+    textAlign: "left",
+    paddingLeft: 30,
+    paddingRight:30,
   }
 })

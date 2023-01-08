@@ -20,6 +20,7 @@ import FeedbackSupport from "./Screens/FeedbackSupport";
 import LoginScreen from "./Screens/LoginScreen";
 import More from "./Screens/More";
 import MoveMoney from './Screens/MoveMoney';
+import Insights from "./Screens/Insights";
 
 function getHeaderTitle(route) {
   const routeName = getFocusedRouteNameFromRoute(route);
@@ -111,6 +112,7 @@ function MoreStack() {
     )
 }
 
+
 export default function App() {
     const [loaded] = useFonts({
         SFcompactRegular: require('./assets/fonts/SF-Compact-Text-Regular.otf'),
@@ -195,6 +197,22 @@ export default function App() {
                   options={{
                     drawerItemStyle: {height: 0},
                   }}
+                />
+                <Drawer.Screen
+                    name="Insights"
+                    component={Insights}
+                    options={({route}) => ({
+                        headerTitle: getHeaderTitle(route),
+                        drawerIcon: () => (
+                              <Icon
+                                  name="star"
+                                  type="feather"
+                                  color="#ABAFBA"
+                                  size="15"
+                                  style={styles.icon}
+                              />
+                          ),
+                    })}
                 />
             </Drawer.Navigator>
         </NavigationContainer>
