@@ -52,7 +52,7 @@ export default function TransferMoney() {
                 </TextInput>
             </Pressable>
             <Pressable style={styles.confirmButton}>
-                <Text style = {styles.bigText}>Confirm</Text>
+                <Text style = {styles.bigText}>CONFIRM</Text>
             </Pressable>
         </SafeAreaView>
     );
