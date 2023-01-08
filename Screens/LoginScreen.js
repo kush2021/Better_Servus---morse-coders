@@ -1,3 +1,6 @@
+/* The LoginScreen.js file contains the code for the login screen. */
+
+/* Import statements. */
 import { useNavigation } from "@react-navigation/native";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from 'react';
@@ -5,6 +8,10 @@ import { Pressable, StyleSheet, TextInput, View } from 'react-native';
 import { Icon, Image, Text } from 'react-native-elements';
 import { auth } from "../firebase";
 
+/**
+ * The LoginScreen() function is called when the login screen is opened.
+ * @returns The screen to display.
+ */
 export default function LoginScreen() {
     const [isLogin, setIsLogin] = useState(true);
     const [password, setPassword] = useState("");
@@ -16,7 +23,6 @@ export default function LoginScreen() {
     const [hasErrorsTwo, setHasErrorsTwo] = useState(false);
     const [loginButton, setLoginButton] = useState("Sign In");
     const [signupButton, setsignUpButton] = useState("Sign Up");
-
     const reset = () => {
         setEmail("");
         setPassword("");
@@ -27,7 +33,6 @@ export default function LoginScreen() {
         setLoginButton("Sign In");
         setsignUpButton("Sign Up");
     }
-
     const checkErrors = (error) => {
         setErrorOne("");
         setErrorTwo("");
@@ -46,18 +51,17 @@ export default function LoginScreen() {
             setErrorOne("email cannot be empty");
             setHasErrorsOne(true);
         }
-        
         if(password == "" && isLogin) {
             setErrorTwo("password cannot be empty");
             setHasErrorsTwo(true);
         }
-        
         if(password.length < 6 && !isLogin) {
             setErrorTwo("password must be at least 6 characters");
             setHasErrorsTwo(true);
         }
     }
 
+    /* Check if a login is valid. */
     const login = async () => {
         setLoginButton("Signing in...")
         await signInWithEmailAndPassword(auth, email, password)
@@ -70,6 +74,7 @@ export default function LoginScreen() {
         });
     }
 
+    /* Allow the user to sign up. */
     const signup = async () => {
         setsignUpButton("Signing Up...")
         await createUserWithEmailAndPassword(auth, email, password)
@@ -82,6 +87,7 @@ export default function LoginScreen() {
         });
     }
 
+    /* Return the screen. */
     return (
         <View style={styles.container}>
             <Image style={styles.image} source={require("../assets/servus-logo.png")}/>
@@ -130,6 +136,7 @@ export default function LoginScreen() {
     )
 }
 
+/* The styles used. */
 const styles = StyleSheet.create({
     container: {
         display: "flex",
