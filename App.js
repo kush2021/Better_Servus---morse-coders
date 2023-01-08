@@ -55,7 +55,8 @@ export default function App() {
 
     const [loaded] = useFonts({
         SFcompactRegular: require('./assets/fonts/SF-Compact-Text-Regular.otf'),
-        SFcompactSemibold: require('./assets/fonts/SF-Compact-Text-SemiboldItalic.otf'),
+        SFcompactSemibold: require('./assets/fonts/SF-Compact-Text-Semibold.otf'),
+
     });
       
     if (!loaded) {
