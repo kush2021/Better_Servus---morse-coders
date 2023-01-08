@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     name: {
       fontSize: 15,
       fontFamily: "SFcompactRegular",
-      paddingLeft: 5,
+      paddingLeft: 15,
     },
     item: {
       display: "flex",

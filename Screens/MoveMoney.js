@@ -88,6 +88,6 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 15,
         fontFamily: "SFcompactRegular",
-        paddingLeft: 5,
+        paddingLeft: 15,
     },
 });
