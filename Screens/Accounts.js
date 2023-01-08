@@ -99,15 +99,16 @@ export default function Accounts() {
           </VictoryChart>
         </View>
       </View>
-      <Text style={styles.semiHeader}>Accounts</Text>
+      <View style={styles.accountBalance}>
+        <Text style={styles.semiHeader}>Accounts</Text>
+        {total != 0 && <Text style={styles.totalBalance}>Total Balance: ${parseFloat(total).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>}
+      </View>
       <FlatList
         style={styles.list}
         data={accounts}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       />
-
-      {total != 0 && <Text style={styles.totalBalance}>Total Balance: ${parseFloat(total).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>}
     </ScrollView>
   )
 }
@@ -162,7 +163,7 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: 20,
     marginTop: 5,
-    fontSize: 16,
+    fontSize: 14,
     fontFamily: "SFcompactSemibold",
     color: "#3070B6",
   },
@@ -196,4 +197,8 @@ const styles = StyleSheet.create({
     color: "#3070B6",
     marginTop: 10,
   }, 
+  accountBalance: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  }
 })
